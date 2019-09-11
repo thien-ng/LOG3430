@@ -1,3 +1,4 @@
+import re
 from DAOs import ContactDAO
 from models import Contact 
 from datetime import datetime
@@ -118,10 +119,10 @@ class ContactService:
                 self.contactDAO.deactivate(contact.id)
     # To complete and to propose unit test for it
     def check_phone(self, phone):
-        '''
-        Return True if the phone number is a valid american phone number otherwise, it returns False.
-        '''
-        return True
+        pattern = re.compile("^[+]*[(]{0,1}[0-9]{3}[)]{0,1}[-\s]{0,1}[0-9]{3}-[0-9]{4}")
+        result = re.match(pattern, phone)
+        return True if result else False
+        
     # To complete and to propose unit test for it
     def check_mail(self, mail):
         '''

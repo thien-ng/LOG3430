@@ -93,7 +93,12 @@ class TestContactService(unittest.TestCase):
             self.contactService.delete_contact(first_name='firstname', last_name='lastname')
         except Exception as e:
             self.assertEqual(str(e), "No contact with first name <firstname> and last name <lastname>")
-    
+
+    def test_function_check_phone_should_return_true_only_when_american_number_is_passed(self):
+        self.assertEqual(self.contactService.check_phone("555-555-5555"), True)
+
+    def test_function_check_phone_should_return_false_when_number_is_not_american(self):
+        self.assertEqual(self.contactService.check_phone("55445-5545-55554"), False)  
 
     
 if __name__ == '__main__':
