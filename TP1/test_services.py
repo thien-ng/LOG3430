@@ -20,11 +20,10 @@ class TestContactService(unittest.TestCase):
         contact = self.contactService.create_contact('Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
         self.assertTrue(contact.updated)
     
-    ## REMOVE DECIMALS OF DATE
     def test_when_contact_is_created_updated_date_should_be_now(self):
         self.contactDAO.get_by_names.return_value = None
         contact = self.contactService.create_contact('Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
-        self.assertEqual(contact.updated_date, datetime.now().timestamp())
+        self.assertEqual(int(contact.updated_date), int(datetime.now().timestamp()))
 
     def test_when_contact_is_created_and_DAO_get_by_names_returns_contact_it_should_raise_AlreadyExistedItem(self):
         self.contactDAO.get_by_names.return_value = "SOMEBODY"
@@ -37,10 +36,9 @@ class TestContactService(unittest.TestCase):
         contact = self.contactService.update_contact('id','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
         self.assertTrue(contact.updated)
 
-    ## REMOVE DECIMALS OF DATE
     def test_when_contact_is_changed_updated_date_should_be_now(self):
         contact = self.contactService.update_contact('id','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
-        self.assertEqual(contact.updated_date, datetime.now().timestamp())
+        self.assertEqual(int(contact.updated_date), int(datetime.now().timestamp()))
     
     def test_when_contact_is_changed_and_DAO_update_returns_zero_it_should_raise_UndefinedID(self):
         self.contactDAO.update.return_value = 0
