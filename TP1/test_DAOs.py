@@ -101,13 +101,19 @@ class TestContactDAO(unittest.TestCase):
         self.assertEqual(self.contactDAO.update(contact), 0)
 
     def test_list_contacts_with_no_contacts_added_returns_empty_list(self):
-        pass
+        self.assertEqual(self.contactDAO.list(updated=None), [])
     
     def test_list_contacts_with_one_contact_should_return_list_with_contact(self):
-        pass
+        id = 1
+        updated = True
+        updated_date = datetime.now().timestamp()
+        contact = Contact( id, "first_name", "last_name", "phone", "mail", updated, updated_date)
+        self.contactDAO.add(contact)
+        contacts = self.contactDAO.list(updated=None)
+        self.assertEqual(len(contacts), 1)
     
     def test_list_contacts_with_updated_False_and_all_items_updated_should_return_empty_list(self):
-        pass
+        
     
     def test_list_contacts_with_updated_True_and_all_items_not_updated_should_return_empty_list(self):
         pass
