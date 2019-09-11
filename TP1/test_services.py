@@ -97,7 +97,7 @@ class TestContactService(unittest.TestCase):
         self.assertEqual(self.contactService.check_phone("555-555-5555"), True)
 
     def test_function_check_phone_should_return_false_when_number_is_not_american(self):
-        self.assertEqual(self.contactService.check_phone("55445-5545-55554"), False)  
+        self.assertEqual(self.contactService.check_phone("3565 346345"), False)  
 
     
 if __name__ == '__main__':
