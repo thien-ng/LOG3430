@@ -2,6 +2,7 @@ import sqlite3
 import unittest
 import unittest.mock
 import os
+from models import Contact
 from DAOs import ContactDAO
 from models import Contact
 from datetime import datetime
@@ -26,13 +27,40 @@ class TestContactDAO(unittest.TestCase):
             self.fail("Should not have raised sqlite3.OperationalError")
     
     def test_when_add_is_called_it_should_return_an_autoincremented_id(self):
-        pass
+        id = None
+        contact = Contact(id, "first_name", "last_name", "phone", "mail", "updated", "updated_date")
+        self.contactDAO.add(contact)
+        self.assertEqual(self.contactDAO.add(contact), 2)
     
     def test_get_by_id_after_add_should_return_inserted_value(self):
-        pass
+        id = None
+        contact = Contact(id, "first_name", "last_name", "phone", "mail", False, "updated_date")
+        self.contactDAO.add(contact)
+
+        fetched = self.contactDAO.get_by_id(1)
+
+        self.assertEqual(fetched.id, 1)
+        self.assertEqual(fetched.first_name, contact.first_name)
+        self.assertEqual(fetched.last_name, contact.last_name)
+        self.assertEqual(fetched.phone, contact.phone)
+        self.assertEqual(fetched.mail, contact.mail)
+        self.assertEqual(fetched.updated, contact.updated)
+        self.assertEqual(fetched.updated_date, contact.updated_date)
     
     def test_get_by_names_after_add_should_return_inserted_value(self):
-        pass
+        id = None
+        contact = Contact(id, "first_name", "last_name", "phone", "mail", False, "updated_date")
+        self.contactDAO.add(contact)
+
+        fetched = self.contactDAO.get_by_names("first_name", "last_name")
+
+        self.assertEqual(fetched.id, 1)
+        self.assertEqual(fetched.first_name, contact.first_name)
+        self.assertEqual(fetched.last_name, contact.last_name)
+        self.assertEqual(fetched.phone, contact.phone)
+        self.assertEqual(fetched.mail, contact.mail)
+        self.assertEqual(fetched.updated, contact.updated)
+        self.assertEqual(fetched.updated_date, contact.updated_date)
 
     def test_get_by_id_with_undefined_rowid_should_return_None(self):
         pass
