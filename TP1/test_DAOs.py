@@ -113,8 +113,8 @@ class TestContactDAO(unittest.TestCase):
         self.assertEqual(len(contacts), 1)
     
     def test_list_contacts_with_updated_False_and_all_items_updated_should_return_empty_list(self):
-        
-    
+        pass
+
     def test_list_contacts_with_updated_True_and_all_items_not_updated_should_return_empty_list(self):
         pass
     

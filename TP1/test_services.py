@@ -72,7 +72,18 @@ class TestContactService(unittest.TestCase):
     def test_when_retrieve_contact_is_called_with_names_and_DAO_delete_by_names_returns_zero_it_should_raise_NotExistedItem(self):
         self.contactDAO.delete_by_names.return_value = 0
         self.assertRaises(NotExistedItem, self.contactService.delete_contact, first_name='firstname', last_name='lastname')
+
+    def test_function_check_phone_should_return_true_only_when_american_number_is_passed(self):
+        self.assertTrue(self.contactService.check_phone("555-555-5555"))
+
+    def test_function_check_phone_should_return_false_when_number_is_not_american(self):
+        self.assertFalse(self.contactService.check_phone("3565 346345"))
     
+    def test_function_check_mail_should_return_true_if_mail_is_valid(self):
+        self.assertTrue(self.contactService.check_mail("sdfgdfsgdf@gmail.com"))
+
+    def test_function_check_mail_should_return_false_if_mail_is_not_valid(self):
+        self.assertFalse(self.contactService.check_mail("thisisnotanemail@@agmail.comm"))
 
     
 if __name__ == '__main__':
