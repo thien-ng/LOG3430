@@ -27,14 +27,12 @@ class TestContactDAO(unittest.TestCase):
             self.fail("Should not have raised sqlite3.OperationalError")
     
     def test_when_add_is_called_it_should_return_an_autoincremented_id(self):
-        id = None
-        contact = Contact(id, "first_name", "last_name", "phone", "mail", "updated", "updated_date")
+        contact = Contact(None, "first_name", "last_name", "phone", "mail", "updated", "updated_date")
         self.contactDAO.add(contact)
         self.assertEqual(self.contactDAO.add(contact), 2)
     
     def test_get_by_id_after_add_should_return_inserted_value(self):
-        id = None
-        contact = Contact(id, "first_name", "last_name", "phone", "mail", False, "updated_date")
+        contact = Contact(None, "first_name", "last_name", "phone", "mail", True, "updated_date")
         self.contactDAO.add(contact)
 
         fetched = self.contactDAO.get_by_id(1)
@@ -48,8 +46,7 @@ class TestContactDAO(unittest.TestCase):
         self.assertEqual(fetched.updated_date, contact.updated_date)
     
     def test_get_by_names_after_add_should_return_inserted_value(self):
-        id = None
-        contact = Contact(id, "first_name", "last_name", "phone", "mail", False, "updated_date")
+        contact = Contact(None, "first_name", "last_name", "phone", "mail", True, "updated_date")
         self.contactDAO.add(contact)
 
         fetched = self.contactDAO.get_by_names("first_name", "last_name")
@@ -63,23 +60,30 @@ class TestContactDAO(unittest.TestCase):
         self.assertEqual(fetched.updated_date, contact.updated_date)
 
     def test_get_by_id_with_undefined_rowid_should_return_None(self):
-        pass
+        self.assertIsNone(self.contactDAO.get_by_id(999))
     
     def test_get_by_names_with_notexisted_contact_should_return_None(self):
-        pass
+        self.assertIsNone(self.contactDAO.get_by_names("non", "existant"))
     
     def test_deactivate_contact_then_get_it_with_id_should_be_not_updated(self):
-        pass
+        contact = Contact(None, "first_name", "last_name", "phone", "mail", True, "updated_date")
+        self.contactDAO.add(contact)
+        self.contactDAO.deactivate(1)
+        self.assertEqual(self.contactDAO.get_by_id(1).updated, False)
     
     def test_deactivate_contact_on_undefined_id_should_return_zero(self):
-        pass
+        self.assertEqual(self.contactDAO.deactivate(999), 0)
     
     def test_after_deleting_contact_by_id_get_it_with_id_should_return_None(self):
-        pass
+        contact = Contact(None, "first_name", "last_name", "phone", "mail", True, "updated_date")
+        self.contactDAO.add(contact)
+        self.contactDAO.delete_by_id(1)
+
+        self.assertIsNone(self.contactDAO.get_by_id(1))
     
     def test_deleting_undefined_id_should_return_zero(self):
-        pass
-
+        self.assertEqual(self.contactDAO.delete_by_id(999), 0)
+##################################################################
     def test_after_deleting_contact_by_names_get_item_with_id_should_return_None(self):
         pass
 
