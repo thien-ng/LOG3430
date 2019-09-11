@@ -85,14 +85,34 @@ class TestContactDAO(unittest.TestCase):
         self.assertEqual(self.contactDAO.delete_by_id(999), 0)
 ##################################################################
     def test_after_deleting_contact_by_names_get_item_with_id_should_return_None(self):
-        pass
+        contact = Contact(None, "first_name", "last_name", "phone", "mail", True, "updated_date")
+        self.contactDAO.add(contact)
+        self.contactDAO.delete_by_names(contact.first_name, contact.last_name)
+
+        self.assertIsNone(self.contactDAO.get_by_id(1))
 
     def test_deleting_not_existed_contact_should_return_zero(self):
-        pass
+        self.assertEqual(self.contactDAO.delete_by_names("dygfsdug", "sjcbiabc"), 0)
 
     def test_update_contact_should_set_the_provided_values(self):
-        pass
-    ##########################################
+        id = None
+        updated = False
+        contact = Contact( id, "first_name", "last_name", "phone", "mail", updated, "updated_date")
+        self.contactDAO.add(contact)
+        updated_date = datetime.now().timestamp()
+        contact = Contact(1, "Coach", "Carter", "123456789", "123456789@hotmail.com", True, updated_date)
+        self.contactDAO.update(contact)
+
+        fetched = self.contactDAO.get_by_id(1)
+
+        self.assertEqual(fetched.id, 1)
+        self.assertEqual(fetched.first_name, contact.first_name)
+        self.assertEqual(fetched.last_name, contact.last_name)
+        self.assertEqual(fetched.phone, contact.phone)
+        self.assertEqual(fetched.mail, contact.mail)
+        self.assertEqual(fetched.updated, contact.updated)
+        self.assertEqual(fetched.updated_date, contact.updated_date)
+
     def test_update_contact_should_return_zero_if_id_does_not_exist(self):
         id = None
         updated = True
@@ -101,10 +121,10 @@ class TestContactDAO(unittest.TestCase):
         self.assertEqual(self.contactDAO.update(contact), 0)
 
     def test_list_contacts_with_no_contacts_added_returns_empty_list(self):
-        self.assertEqual(self.contactDAO.list(updated=None), [])
+        self.assertEqual(len(self.contactDAO.list(updated=None)), 0)
     
     def test_list_contacts_with_one_contact_should_return_list_with_contact(self):
-        id = 1
+        id = None
         updated = True
         updated_date = datetime.now().timestamp()
         contact = Contact( id, "first_name", "last_name", "phone", "mail", updated, updated_date)
@@ -113,16 +133,36 @@ class TestContactDAO(unittest.TestCase):
         self.assertEqual(len(contacts), 1)
     
     def test_list_contacts_with_updated_False_and_all_items_updated_should_return_empty_list(self):
-        
-    
+        id = None
+        updated = False
+        contact = Contact( id, "first_name", "last_name", "phone", "mail", updated, "updated_date")
+        for x in range(7):
+            self.contactDAO.add(contact)
+        self.assertEqual(len(self.contactDAO.list(updated=True)), 0)
+
     def test_list_contacts_with_updated_True_and_all_items_not_updated_should_return_empty_list(self):
-        pass
+        id = None
+        updated = True
+        contact = Contact( id, "first_name", "last_name", "phone", "mail", updated, "updated_date")
+        for x in range(10):
+            self.contactDAO.add(contact)
+        self.assertEqual(len(self.contactDAO.list(updated=False)), 0)
     
     def test_list_contacts_with_all_not_updated_items_and_updated_False_should_return_all_contacts(self):
-        pass
+        id = None
+        updated = False
+        contact = Contact( id, "first_name", "last_name", "phone", "mail", updated, "updated_date")
+        for x in range(10):
+            self.contactDAO.add(contact)
+        self.assertEqual(len(self.contactDAO.list(updated=False)), 10)
 
     def test_list_contacts_with_all_updated_items_and_updated_True_should_return_all_contacts(self):
-        pass
+        id = None
+        updated = True
+        contact = Contact( id, "first_name", "last_name", "phone", "mail", updated, "updated_date")
+        for x in range(7):
+            self.contactDAO.add(contact)
+        self.assertEqual(len(self.contactDAO.list(updated=True)), 7)
 
 if __name__ == '__main__':
     unittest.main()
