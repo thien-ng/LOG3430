@@ -51,11 +51,11 @@ class TestContactService(unittest.TestCase):
 
     def test_when_retrieve_contact_is_called_with_id_and_DAO_get_by_id_should_be_called(self):
         self.contactService.retrieve_contact(id='id')
-        self.assertTrue(self.contactDAO.get_by_names.was_called)
+        self.contactDAO.get_by_id.assert_called_with(id='id')
     
     def test_when_retrieve_contact_is_called_with_names_and_DAO_get_by_names_should_be_called(self):
         self.contactService.retrieve_contact(first_name='firstname', last_name='lastname')
-        self.assertTrue(self.contactDAO.get_by_id.was_called)
+        self.contactDAO.get_by_names.assert_called_with(first_name='firstname', last_name='lastname')
 
     def test_when_retrieve_contact_is_called_with_id_and_DAO_returns_None_it_should_raise_UndefinedID(self):
         self.contactDAO.get_by_id.return_value = None
@@ -73,12 +73,11 @@ class TestContactService(unittest.TestCase):
 
     def test_when_delete_contact_is_called_with_id_and_DAO_delete_by_id_should_be_called(self):
         self.contactService.delete_contact(id='id')
-        self.assertTrue(self.contactDAO.delete_by_id.was_called)
+        self.contactDAO.delete_by_id.assert_called_with('id')
     
     def test_when_delete_contact_is_called_with_names_and_DAO_delete_by_names_should_be_called(self):
         self.contactService.delete_contact(first_name='firstname', last_name='lastname')
-        # self.assertTrue(self.contactDAO.delete_by_names.was_called)
-        self.contactDAO.delete_by_names.assert_called_with(first_name='firstname', last_name='lastname')
+        self.contactDAO.delete_by_names.assert_called_with('firstname', 'lastname')
 
     def test_when_delete_contact_is_called_with_id_and_DAO_delete_by_id_returns_zero_it_should_raise_UndefinedID(self):
         self.contactDAO.delete_by_id.return_value = 0
