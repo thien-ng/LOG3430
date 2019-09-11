@@ -125,7 +125,6 @@ class ContactService:
         
     # To complete and to propose unit test for it
     def check_mail(self, mail):
-        '''
-        Return True if the mail address is valid otherwise, it returns False.
-        '''
-        return True
+        pattern = re.compile("^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$")
+        result = re.match(pattern, mail)
+        return True if result else False

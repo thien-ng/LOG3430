@@ -96,6 +96,12 @@ class TestContactService(unittest.TestCase):
 
     def test_function_check_phone_should_return_false_when_number_is_not_american(self):
         self.assertEqual(self.contactService.check_phone("3565 346345"), False)  
+    
+    def test_function_check_mail_should_return_true_if_mail_is_valid(self):
+        self.assertEqual(self.contactService.check_mail("sdfgdfsgdf@gmail.com"), True)
+
+    def test_function_check_mail_should_return_false_if_mail_is_not_valid(self):
+        self.assertEqual(self.contactService.check_mail("thisisnotanemail@@agmail.comm"), False)
 
     
 if __name__ == '__main__':
