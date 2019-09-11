@@ -46,7 +46,7 @@ class TestContactDAO(unittest.TestCase):
     
     def test_after_deleting_contact_by_id_get_it_with_id_should_return_None(self):
         pass
-
+    
     def test_deleting_undefined_id_should_return_zero(self):
         pass
 
@@ -58,7 +58,7 @@ class TestContactDAO(unittest.TestCase):
 
     def test_update_contact_should_set_the_provided_values(self):
         pass
-
+    ##########################################
     def test_update_contact_should_return_zero_if_id_does_not_exist(self):
         pass
 
