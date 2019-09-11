@@ -5,6 +5,7 @@ import os
 from models import Contact
 from DAOs import ContactDAO
 from services import ContactService
+from datetime import datetime
 
 # To complete...
 class TestContactService(unittest.TestCase):
@@ -19,44 +20,79 @@ class TestContactService(unittest.TestCase):
         contact = self.contactService.create_contact('Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
         self.assertTrue(contact.updated)
     
+    ## REMOVE DECIMALS OF DATE
     def test_when_contact_is_created_updated_date_should_be_now(self):
-        pass
+        self.contactDAO.get_by_names.return_value = None
+        contact = self.contactService.create_contact('Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
+        self.assertEqual(contact.updated_date, datetime.now().timestamp())
 
     def test_when_contact_is_created_and_DAO_get_by_names_returns_contact_it_should_raise_AlreadyExistedItem(self):
-        pass
+        self.contactDAO.get_by_names.return_value = "SOMEBODY"
+        try:
+            self.contactService.create_contact('Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
+        except Exception as e:
+            self.assertEqual(str(e), "Contact with first name <Houssem> and last name <Ben Braiek> already exist")
     
     def test_when_contact_is_changed_updated_should_be_True(self):
-        pass
-    
+        contact = self.contactService.update_contact('id','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
+        self.assertTrue(contact.updated)
+
+    ## REMOVE DECIMALS OF DATE
     def test_when_contact_is_changed_updated_date_should_be_now(self):
-        pass
+        contact = self.contactService.update_contact('id','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
+        self.assertEqual(contact.updated_date, datetime.now().timestamp())
     
     def test_when_contact_is_changed_and_DAO_update_returns_zero_it_should_raise_UndefinedID(self):
-        pass
+        self.contactDAO.update.return_value = 0
+        try:
+            self.contactService.update_contact('id','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
+        except Exception as e:
+            self.assertEqual(str(e), "No contact with id <id>")
 
     def test_when_retrieve_contact_is_called_with_id_and_DAO_get_by_id_should_be_called(self):
-        pass
+        self.contactService.retrieve_contact(id='id')
+        self.assertTrue(self.contactDAO.get_by_names.was_called)
     
     def test_when_retrieve_contact_is_called_with_names_and_DAO_get_by_names_should_be_called(self):
-        pass
+        self.contactService.retrieve_contact(first_name='firstname', last_name='lastname')
+        self.assertTrue(self.contactDAO.get_by_id.was_called)
 
     def test_when_retrieve_contact_is_called_with_id_and_DAO_returns_None_it_should_raise_UndefinedID(self):
-        pass
+        self.contactDAO.get_by_id.return_value = None
+        try:
+            self.contactService.retrieve_contact(id='id')
+        except Exception as e:
+            self.assertEqual(str(e), "No contact with id <id>")
     
     def test_when_retrieve_contact_is_called_with_names_and_DAO_returns_None_it_should_raise_NotExistedItem(self):
-        pass
+        self.contactDAO.get_by_names.return_value = None
+        try:
+            self.contactService.retrieve_contact(first_name='firstname', last_name='lastname')
+        except Exception as e:
+            self.assertEqual(str(e), "No contact with first name <firstname> and last name <lastname>")
 
     def test_when_delete_contact_is_called_with_id_and_DAO_delete_by_id_should_be_called(self):
-        pass
+        self.contactService.delete_contact(id='id')
+        self.assertTrue(self.contactDAO.delete_by_id.was_called)
     
     def test_when_delete_contact_is_called_with_names_and_DAO_delete_by_names_should_be_called(self):
-        pass
+        self.contactService.delete_contact(first_name='firstname', last_name='lastname')
+        # self.assertTrue(self.contactDAO.delete_by_names.was_called)
+        self.contactDAO.delete_by_names.assert_called_with(first_name='firstname', last_name='lastname')
 
     def test_when_delete_contact_is_called_with_id_and_DAO_delete_by_id_returns_zero_it_should_raise_UndefinedID(self):
-        pass
+        self.contactDAO.delete_by_id.return_value = 0
+        try:
+            self.contactService.delete_contact(id='id')
+        except Exception as e:
+            self.assertEqual(str(e), "No contact with id <id>")
     
     def test_when_retrieve_contact_is_called_with_names_and_DAO_delete_by_names_returns_zero_it_should_raise_NotExistedItem(self):
-        pass
+        self.contactDAO.delete_by_names.return_value = 0
+        try:
+            self.contactService.delete_contact(first_name='firstname', last_name='lastname')
+        except Exception as e:
+            self.assertEqual(str(e), "No contact with first name <firstname> and last name <lastname>")
     
 
     
