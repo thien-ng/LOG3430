@@ -59,7 +59,6 @@ class TestContactDAO(unittest.TestCase):
         self.assertEqual(fetched.mail, contact.mail)
         self.assertEqual(fetched.updated, contact.updated)
         self.assertEqual(fetched.updated_date, contact.updated_date)
-        pass
 
     def test_get_by_id_with_undefined_rowid_should_return_None(self):
         pass
