@@ -4,6 +4,8 @@ import unittest.mock
 import os
 from models import Contact
 from DAOs import ContactDAO
+from models import Contact
+from datetime import datetime
 
 # To complete...
 class TestContactDAO(unittest.TestCase):
@@ -90,9 +92,13 @@ class TestContactDAO(unittest.TestCase):
 
     def test_update_contact_should_set_the_provided_values(self):
         pass
-    
+    ##########################################
     def test_update_contact_should_return_zero_if_id_does_not_exist(self):
-        pass
+        id = None
+        updated = True
+        updated_date = datetime.now().timestamp()
+        contact = Contact( id, "first_name", "last_name", "phone", "mail", updated, updated_date)
+        self.assertEqual(self.contactDAO.update(contact), 0)
 
     def test_list_contacts_with_no_contacts_added_returns_empty_list(self):
         pass
