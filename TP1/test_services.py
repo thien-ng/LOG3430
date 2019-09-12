@@ -74,8 +74,27 @@ class TestContactService(unittest.TestCase):
         self.assertRaises(NotExistedItem, self.contactService.delete_contact, first_name='firstname', last_name='lastname')
 
     # Test pour verify_contacts_status
-
+    # REGARDER COMMENT TESTER LE RAISE
     
+    # TEST A REVOIR
+    def test_function_verify_contacts_status_when_retrieve_active_contacts_returns_nothing(self):
+        self.contactDAO.list.return_value = []
+        self.contactService.verify_contacts_status()
+        self.contactDAO.deactivate.assert_not_called()
+    
+    def test_function_verify_contacts_status_when_delta_days_is_higher_than_1095(self):
+        self.contactDAO.get_by_names.return_value = None
+        contact = Contact('id','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com','updated',1)
+        self.contactDAO.list.return_value = [contact]
+        self.contactService.verify_contacts_status()
+        self.contactDAO.deactivate.assert_called_with(contact.id)
+
+    def test_function_verify_contacts_status_when_delta_days_is_lower_than_1095(self):
+        self.contactDAO.get_by_names.return_value = None
+        contact = Contact('id','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com','updated',datetime.now().timestamp())
+        self.contactDAO.list.return_value = [contact]
+        self.contactService.verify_contacts_status()
+        self.contactDAO.deactivate.assert_not_called()
 
     # Test pour Check_phone et check_mail
     def test_function_check_phone_should_return_true_only_when_american_number_is_passed(self):
