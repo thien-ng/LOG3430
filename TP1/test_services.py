@@ -25,6 +25,7 @@ class TestContactService(unittest.TestCase):
         contact = self.contactService.create_contact('Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
         self.assertEqual(int(contact.updated_date), int(datetime.now().timestamp()))
 
+    #RETURN TYPE CONTACT
     def test_when_contact_is_created_and_DAO_get_by_names_returns_contact_it_should_raise_AlreadyExistedItem(self):
         self.contactDAO.get_by_names.return_value = "SOMEBODY"
         self.assertRaises(AlreadyExistedItem, self.contactService.create_contact, 'Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
@@ -74,8 +75,6 @@ class TestContactService(unittest.TestCase):
         self.assertRaises(NotExistedItem, self.contactService.delete_contact, first_name='firstname', last_name='lastname')
 
     # Test pour verify_contacts_status
-    # REGARDER COMMENT TESTER LE RAISE
-    
     # TEST A REVOIR
     def test_function_verify_contacts_status_when_retrieve_active_contacts_returns_nothing(self):
         self.contactDAO.list.return_value = []
