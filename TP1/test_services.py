@@ -1,3 +1,4 @@
+
 import sqlite3
 import unittest
 from unittest.mock import Mock
@@ -73,11 +74,6 @@ class TestContactService(unittest.TestCase):
         self.contactDAO.delete_by_names.return_value = 0
         self.assertRaises(NotExistedItem, self.contactService.delete_contact, first_name='firstname', last_name='lastname')
 
-    # Test pour verify_contacts_status
-
-    
-
-    # Test pour Check_phone et check_mail
     def test_function_check_phone_should_return_true_only_when_american_number_is_passed(self):
         self.assertTrue(self.contactService.check_phone("555-555-5555"))
 
