@@ -108,6 +108,13 @@ class TestContactService(unittest.TestCase):
     def test_function_check_mail_should_return_false_if_mail_is_not_valid(self):
         self.assertFalse(self.contactService.check_mail("thisisnotanemail@@agmail.comm"))
 
+    def test_function_create_contact_should_raise_InvalidPhoneNumber_exception_if_phone_not_valid(self):
+        self.assertRaises(InvalidPhoneNumber, self.contactService.create_contact, 'Jeremy', 'Boulet', '5555555', 'email@gmail.com')
+
+    def test_function_create_contact_should_raise_InvalidMailAddress_exception_if_phone_not_valid(self):
+        self.assertRaises(InvalidMailAddress, self.contactService.create_contact, 'Jeremy', 'Boulet', '122-334-5566', 'emailgmail.com')
+
+
     
 if __name__ == '__main__':
     unittest.main()
