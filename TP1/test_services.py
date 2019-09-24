@@ -82,10 +82,12 @@ class TestContactService(unittest.TestCase):
     
     def test_function_verify_contacts_status_when_delta_days_is_higher_than_1095(self):
         self.contactDAO.get_by_names.return_value = None
-        contact = Contact('id','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com','updated',1)
+        contact = Contact('5','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com','updated',1)
         self.contactDAO.list.return_value = [contact]
-        self.contactService.verify_contacts_status()
+        notification = self.contactService.verify_contacts_status()
         self.contactDAO.deactivate.assert_called_with(contact.id)
+        # test return value to notify user (added feature in services.py)
+        self.assertEqual(notification, "User with ID 5 has been deactivated.")
 
     def test_function_verify_contacts_status_when_delta_days_is_lower_than_1095(self):
         self.contactDAO.get_by_names.return_value = None
