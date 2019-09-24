@@ -164,6 +164,7 @@ class ContactDAO:
                         WHERE
                             first_name = ? AND last_name = ?
                         ''', (first_name, last_name))
+        connection.commit()
         connection.close()            
         return cursor.rowcount
 
