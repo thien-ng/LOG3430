@@ -117,6 +117,10 @@ class ContactService:
             delta = datetime.now() - datetime.fromtimestamp(contact.updated_date)
             if delta.days > 1095:
                 self.contactDAO.deactivate(contact.id)
+    
+                #Added return line to notifiy user about contact deactivation
+                return "User with ID " + contact.id + " has been deactivated."
+    
     # To complete and to propose unit test for it
     def check_phone(self, phone):
         pattern = re.compile("^[+]*[(]{0,1}[0-9]{3}[)]{0,1}[-\s]{0,1}[0-9]{3}-[0-9]{4}")
