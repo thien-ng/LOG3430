@@ -83,7 +83,7 @@ class TestContactDAO(unittest.TestCase):
     
     def test_deleting_undefined_id_should_return_zero(self):
         self.assertEqual(self.contactDAO.delete_by_id(999), 0)
-##################################################################
+
     def test_after_deleting_contact_by_names_get_item_with_id_should_return_None(self):
         contact = Contact(None, "first_name", "last_name", "phone", "mail", True, "updated_date")
         self.contactDAO.add(contact)

@@ -27,7 +27,8 @@ class TestContactService(unittest.TestCase):
         self.assertEqual(int(contact.updated_date), int(datetime.now().timestamp()))
 
     def test_when_contact_is_created_and_DAO_get_by_names_returns_contact_it_should_raise_AlreadyExistedItem(self):
-        self.contactDAO.get_by_names.return_value = "SOMEBODY"
+        contact = self.contactService.update_contact('id','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
+        self.contactDAO.get_by_names.return_value = contact
         self.assertRaises(AlreadyExistedItem, self.contactService.create_contact, 'Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com')
 
     def test_when_contact_is_changed_updated_should_be_True(self):
@@ -75,9 +76,6 @@ class TestContactService(unittest.TestCase):
         self.assertRaises(NotExistedItem, self.contactService.delete_contact, first_name='firstname', last_name='lastname')
 
     # Test pour verify_contacts_status
-    # REGARDER COMMENT TESTER LE RAISE
-    
-    # TEST A REVOIR
     def test_function_verify_contacts_status_when_retrieve_active_contacts_returns_nothing(self):
         self.contactDAO.list.return_value = []
         self.contactService.verify_contacts_status()
@@ -85,10 +83,12 @@ class TestContactService(unittest.TestCase):
     
     def test_function_verify_contacts_status_when_delta_days_is_higher_than_1095(self):
         self.contactDAO.get_by_names.return_value = None
-        contact = Contact('id','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com','updated',1)
+        contact = Contact('5','Houssem','Ben Braiek','123-456-7891','houssem.bb@gmail.com','updated',1)
         self.contactDAO.list.return_value = [contact]
-        self.contactService.verify_contacts_status()
+        notification = self.contactService.verify_contacts_status()
         self.contactDAO.deactivate.assert_called_with(contact.id)
+        # test return value to notify user (added feature in services.py)
+        self.assertEqual(notification, "User with ID 5 has been deactivated.")
 
     def test_function_verify_contacts_status_when_delta_days_is_lower_than_1095(self):
         self.contactDAO.get_by_names.return_value = None
@@ -103,12 +103,25 @@ class TestContactService(unittest.TestCase):
 
     def test_function_check_phone_should_return_false_when_number_is_not_american(self):
         self.assertFalse(self.contactService.check_phone("3565 346345"))
+
+    def test_function_check_phone_should_return_false_when_number_is_empty(self):
+        self.assertFalse(self.contactService.check_phone(""))
     
     def test_function_check_mail_should_return_true_if_mail_is_valid(self):
         self.assertTrue(self.contactService.check_mail("sdfgdfsgdf@gmail.com"))
 
     def test_function_check_mail_should_return_false_if_mail_is_not_valid(self):
         self.assertFalse(self.contactService.check_mail("thisisnotanemail@@agmail.comm"))
+        
+    def test_function_check_mail_should_return_false_if_mail_string_is_empty(self):
+        self.assertFalse(self.contactService.check_mail(""))
+
+    def test_function_create_contact_should_raise_InvalidPhoneNumber_exception_if_phone_not_valid(self):
+        self.assertRaises(InvalidPhoneNumber, self.contactService.create_contact, 'Jeremy', 'Boulet', '5555555', 'email@gmail.com')
+
+    def test_function_create_contact_should_raise_InvalidMailAddress_exception_if_phone_not_valid(self):
+        self.assertRaises(InvalidMailAddress, self.contactService.create_contact, 'Jeremy', 'Boulet', '122-334-5566', 'emailgmail.com')
+
 
     
 if __name__ == '__main__':
