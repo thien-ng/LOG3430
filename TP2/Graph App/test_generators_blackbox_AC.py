@@ -17,18 +17,36 @@ class TestEulerianCycle(unittest.TestCase):
     # E(2): {E = 0}	[Error]
     # E(3): {E > 0}	[properties: nbEdgesOk]
     
-    def test_when_generate_eulerian_cycle_with_negative_vertex_should_raise_ValueError(self):
+    def test_when_generate_eulerian_cycle_with_negative_vertex_and_negative_edge_should_raise_ValueError(self):
         self.assertRaises(ValueError, eulerianCycle, -5, -1)
     
-    def test_when_generate_eulerian_cycle_with_vertex_equal_to_0_should_raise_ValueError(self):
-        self.assertRaises(ValueError, eulerianCycle, 0, 0)
+    def test_when_generate_eulerian_cycle_with_negative_vertex_and_0_edge_should_raise_ValueError(self):
+        self.assertRaises(ValueError, eulerianCycle, -5, 0)
+
+    def test_when_generate_eulerian_cycle_with_negative_vertex_and_positive_edge_should_raise_ValueError(self):
+        self.assertRaises(ValueError, eulerianCycle, -5, 5)
     
-    def test_when_generate_eulerian_cycle_with_positive_vertex_should_return_graph(self):
+    def test_when_generate_eulerian_cycle_with_0_vertex_and_negative_edge_should_raise_ValueError(self):
+        self.assertRaises(ValueError, eulerianCycle, 0, -1)
+
+    def test_when_generate_eulerian_cycle_with_0_vertex_and_0_edge_should_raise_ValueError(self):
+        self.assertRaises(ValueError, eulerianCycle, 0, 0)
+
+    def test_when_generate_eulerian_cycle_with_0_vertex_and_positive_edge_should_raise_ValueError(self):
+        self.assertRaises(ValueError, eulerianCycle, 0, 5)
+
+    def test_when_generate_eulerian_cycle_with_positive_vertex_and_negative_edge_should_raise_ValueError(self):
+        self.assertRaises(ValueError, eulerianCycle, 5, -1)
+
+    def test_when_generate_eulerian_cycle_with_positive_vertex_and_0_edge_should_raise_ValueError(self):
+        self.assertRaises(ValueError, eulerianCycle, 5, 0)
+
+    def test_when_generate_eulerian_cycle_with_positive_vertex_and_positive_edge_should_return_graph(self):
         
         isExceptionRaised = False
         
         try:
-            eulerianCycle(2,2)
+            eulerianCycle(5,5)
         except:
             isExceptionRaised = True
         
