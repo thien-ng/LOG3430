@@ -2,13 +2,10 @@ from generators import *
 import unittest
 import models
 
-class TestGeneratorsBlackBox(unittest.TestCase):
+class TestEulerianCycle(unittest.TestCase):
     
-    def setUp(self):
-        print("test")
-
-    def test(self):
-        print(eulerianCycle(10,7))
+    def test_when_generate_eulerian_cycle_with_negative_vertex_should_raise_ValueError(self):
+        self.assertRaises(ValueError, eulerianCycle, -5, 2)
 
 if __name__ == '__main__':
     unittest.main()
