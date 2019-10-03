@@ -219,6 +219,165 @@ class TestEulerianCycle(unittest.TestCase):
         
         self.assertFalse(isExceptionRaised)
 
+class TestRegular(unittest.TestCase):
+
+    # Categories:
+    # V: V Nombre de sommet dans le graph
+    # K: K degree du sommet
+
+    # Choices
+    # V(1): {V nombre pair negatif}
+    # V(2): {V nombre impair negatif}
+    # V(3): {V = 0}
+    # V(4): {V nombre pair positive}
+    # V(5): {V nombre impair positive}
+
+    # K(1): {K nombre pair negatif}
+    # K(2): {K nombre impair negatif}
+    # K(3): {K = 0}
+    # K(4): {K nombre pair positive}
+    # K(5): {K nombre impair positive}
+
+    def test_when_generate_regular_with_negative_even_vertex_and_negative_even_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, -2, -2)
+
+    def test_when_generate_regular_with_negative_even_vertex_and_negative_odd_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, -2, -1)
+
+    def test_when_generate_regular_with_negative_even_vertex_and_0_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, -2, 0)
+
+    def test_when_generate_regular_with_negative_even_vertex_and_positive_even_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, -2, 2)
+
+    def test_when_generate_regular_with_negative_even_vertex_and_positive_odd_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, -2, 1)
+
+    def test_when_generate_regular_with_negative_odd_vertex_and_negative_even_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, -1, -2)
+
+    def test_when_generate_regular_with_negative_odd_vertex_and_negative_odd_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, -1, -1)
+
+    def test_when_generate_regular_with_negative_odd_vertex_and_0_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, -1, 0)
+
+    def test_when_generate_regular_with_negative_odd_vertex_and_positive_even_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, -1, 2)
+
+    def test_when_generate_regular_with_negative_odd_vertex_and_positive_odd_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, -1, 1)
+
+    def test_when_generate_regular_with_0_vertex_and_negative_even_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(0,-2)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_0_vertex_and_negative_odd_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(0,-1)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_0_vertex_and_0_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(0,0)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_0_vertex_and_positive_even_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(0,2)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_0_vertex_and_positive_odd_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(0,1)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_positive_even_vertex_and_negative_even_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(2,-2)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_positive_even_vertex_and_negative_odd_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(2,-1)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_positive_even_vertex_and_0_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(2,0)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_positive_even_vertex_and_positive_even_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(2,2)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_positive_even_vertex_and_positive_odd_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(2,1)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_positive_odd_vertex_and_negative_even_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(1,-2)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_positive_odd_vertex_and_negative_odd_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, 1, -1)
+
+    def test_when_generate_regular_with_positive_odd_vertex_and_0_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(1,0)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_positive_odd_vertex_and_positive_even_degree_should_raise_ValueError(self):
+        isExceptionRaised = False
+        try:
+            regular(1,2)
+        except:
+            isExceptionRaised = True
+        self.assertFalse(isExceptionRaised)
+
+    def test_when_generate_regular_with_positive_odd_vertex_and_positive_odd_degree_should_raise_ValueError(self):
+        self.assertRaises(ValueError, regular, 1, 1)
+
 if __name__ == '__main__':
     unittest.main()
     
