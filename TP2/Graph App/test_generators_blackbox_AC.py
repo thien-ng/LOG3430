@@ -167,7 +167,184 @@ class TestBipartite(unittest.TestCase):
     def test_when_generate_bipartite_graph_with_V13_V23_E4(self):
         self.assertRaises(ValueError, bipartite, 6, 2, 14)
 
-# TestBipartiteWithProbability
+class TestBipartiteWithProbability(unittest.TestCase):
+    # Catégories: 
+    # -V1 pour le nombre de sommets dans le premier sous-ensemble
+    # -V2 pour le nombre de sommets dans le deuxième sous-ensemble
+    # -p pour la probabilité d’avoir un arête entre deux sommets de deux sous-ensembles différents
+
+    # Choix:                
+    # V1(1) : {V1 < 0}	        [erreur]
+    # V1(2) : {V1 = 0}	        [properties: nbV10]
+    # V1(3) : {V1 > 0}	        [properties: nbVertices1Ok]
+
+    # V2(1) : {V2 < 0}	        [erreur]
+    # V2(2) : {V2 = 0}	        [properties: nbV20 ]
+    # V2(3) : {V2 > 0}	        [properties: nbVertices2Ok]
+
+    # p1 : {p < 0}       		[erreur]
+    # p2 : {p = 0}		        [if nbV10 || nbV20]
+    # p3 : {0 < p <= 1}		    [if nbVertices1Ok && nbVertices2Ok]
+    # p4 : {p > 1}		        [erreur]
+
+    def setUp(self):
+        self.exceptionRaised = False
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V21_p1(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, -2, -0.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V21_p2(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, -2, 0)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V21_p3(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, -2, 0.6)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V21_p4(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, -2, 1.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V22_p1(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, 0, -0.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V22_p2(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, 0, 0)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V22_p3(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, 0, 0.6)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V22_p4(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, 0, 1.8) 
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V23_p1(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, 4, -0.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V23_p2(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, 4, 0)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V23_p3(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, 4, 0.6)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V11_V23_p4(self):
+         self.assertRaises(ValueError, bipartite_with_probability, -6, 4, 1.8)   
+
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V21_p1(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 0, -2, -0.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V21_p2(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 0, -2, 0)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V21_p3(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 0, -2, 0.6)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V21_p4(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 0, -2, 1.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V22_p1(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 0, 0, -0.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V22_p2(self):
+        try:
+            bipartite_with_probability(0, 0, 0)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V22_p3(self):
+        try:
+            bipartite_with_probability(0, 0, 0.6)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V22_p4(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 0, 0, 1.8) 
+
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V23_p1(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 0, 4, -0.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V23_p2(self):
+        try:
+            bipartite_with_probability(0, 4, 0)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V23_p3(self):
+        try:
+            bipartite_with_probability(0, 4, 0.6)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V12_V23_p4(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 0, 4, 1.8)   
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V21_p1(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 6, -2, -0.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V21_p2(self):
+        try:
+            bipartite_with_probability(6, -2, 0)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V21_p3(self):
+        try:
+            bipartite_with_probability(6, -2, 0.6)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V21_p4(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 6, -2, 1.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V22_p1(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 6, 0, -0.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V22_p2(self):
+        try:
+            bipartite_with_probability(6, 0, 0)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V22_p3(self):
+        try:
+            bipartite_with_probability(6, 0, 0.6)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V22_p4(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 6, 0, 1.8) 
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V23_p1(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 6, 4, -0.8)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V23_p2(self):
+        try:
+            bipartite_with_probability(6, 4, 0)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V23_p3(self):
+        try:
+            bipartite_with_probability(6, 4, 0.6)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_bipartite_with_probability_graph_with_V13_V23_p4(self):
+         self.assertRaises(ValueError, bipartite_with_probability, 6, 4, 1.8)  
 
 class TestEulerianCycle(unittest.TestCase):
 
