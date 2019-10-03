@@ -3,25 +3,25 @@ import unittest
 import models
 
 class TestBipartite(unittest.TestCase):
-# bipartite (V1, V2, E)
-# Catégories: 
-# -V1 pour le nombre de sommets dans le premier sous-ensemble
-# -V2 pour le nombre de sommets dans le deuxième sous-ensemble
-# -E pour le nombre d’arêtes
+    # bipartite (V1, V2, E)
+    # Catégories: 
+    # -V1 pour le nombre de sommets dans le premier sous-ensemble
+    # -V2 pour le nombre de sommets dans le deuxième sous-ensemble
+    # -E pour le nombre d’arêtes
 
-# Choix:                
-# V1(1) : {V1 < 0}	        [erreur]
-# V1(2) : {V1 = 0}	        [properties: nbV10]
-# V1(3) : {V1 > 0}	        [properties: nbVertices1Ok]
+    # Choix:                
+    # V1(1) : {V1 < 0}	        [erreur]
+    # V1(2) : {V1 = 0}	        [properties: nbV10]
+    # V1(3) : {V1 > 0}	        [properties: nbVertices1Ok]
 
-# V2(1) : {V2 < 0}	        [erreur]
-# V2(2) : {V2 = 0}	        [if nbV10; properties: nbV20 ]
-# V2(3) : {V2 > 0}	        [properties: nbVertices2Ok]
+    # V2(1) : {V2 < 0}	        [erreur]
+    # V2(2) : {V2 = 0}	        [if nbV10; properties: nbV20 ]
+    # V2(3) : {V2 > 0}	        [properties: nbVertices2Ok]
 
-# E1 : {E < 0}		        [erreur]
-# E2 : {E = 0}		        [if nbV10 && nbV20]
-# E3 : {0 < E <= V1*V2}		[if nbVertices1Ok && nbVertices2Ok]
-# E4 : {E > V1*V2} 	        [erreur]
+    # E1 : {E < 0}		        [erreur]
+    # E2 : {E = 0}		        [if nbV10 && nbV20]
+    # E3 : {0 < E <= V1*V2}		[if nbVertices1Ok && nbVertices2Ok]
+    # E4 : {E > V1*V2} 	        [erreur]
 
     def setUp(self):
         self.exceptionRaised = False
@@ -50,26 +50,25 @@ class TestBipartite(unittest.TestCase):
         self.assertFalse(self.exceptionRaised)
 
 class TestBipartiteWithProbability(unittest.TestCase):
-# bipartite_with_probability (V1, V2, p)
-# Catégories: 
-# -V1 pour le nombre de sommets dans le premier sous-ensemble
-# -V2 pour le nombre de sommets dans le deuxième sous-ensemble
-# -p pour la probabilité d’avoir un arête entre deux sommets de deux sous-ensembles différents
+    # bipartite_with_probability (V1, V2, p)
+    # Catégories: 
+    # -V1 pour le nombre de sommets dans le premier sous-ensemble
+    # -V2 pour le nombre de sommets dans le deuxième sous-ensemble
+    # -p pour la probabilité d’avoir un arête entre deux sommets de deux sous-ensembles différents
 
-# Choix:                
-# V1(1) : {V1 < 0}	        [erreur]
-# V1(2) : {V1 = 0}	        [properties: nbV10]
-# V1(3) : {V1 > 0}	        [properties: nbVertices1Ok]
+    # Choix:                
+    # V1(1) : {V1 < 0}	        [erreur]
+    # V1(2) : {V1 = 0}	        [properties: nbV10]
+    # V1(3) : {V1 > 0}	        [properties: nbVertices1Ok]
 
-# V2(1) : {V2 < 0}	        [erreur]
-# V2(2) : {V2 = 0}	        [if nbV10; properties: nbV20 ]
-# V2(3) : {V2 > 0}	        [properties: nbVertices2Ok]
+    # V2(1) : {V2 < 0}	        [erreur]
+    # V2(2) : {V2 = 0}	        [if nbV10; properties: nbV20 ]
+    # V2(3) : {V2 > 0}	        [properties: nbVertices2Ok]
 
-# p1 : {p < 0}       		[erreur]
-# p2 : {p = 0}		        [if nbV10 && nbV20]
-# p3 : {0 < p <= 1}		    [if nbVertices1Ok && nbVertices2Ok]
-# p4 : {p > 1}		        [erreur]
-
+    # p1 : {p < 0}       		[erreur]
+    # p2 : {p = 0}		        [if nbV10 && nbV20]
+    # p3 : {0 < p <= 1}		    [if nbVertices1Ok && nbVertices2Ok]
+    # p4 : {p > 1}		        [erreur]
 
     def setUp(self):
         self.exceptionRaised = False
@@ -91,22 +90,22 @@ class TestBipartiteWithProbability(unittest.TestCase):
     def test_when_generate_bipartite_graph_with_V13_V23_p4(self):
         self.assertRaises(ValueError, bipartite_with_probability, 5, 2, 8)
 
-# Simple (V, E)
-# Catégories:
-# -V: pour le nombres de sommets du graphe
-# -E: le nombre d’arêtes
-
-# Choix:
-# V(1) : V > 0			    [properties: nbVerticesOk]
-# V(2) : V = 0			    [properties: nbVertices0]
-# V(3) : V < 0			    [error]
-
-# E(1) : 0 < E < V*(V-1)/2	[si nbVerticesOk]
-# E(2) : E = 0			    [si nbVertices0]
-# E(3) : E < 0			    [error]
-# E(4):  E > V*(V-1)/2		[erreur]
-
 class TestGraphSimple(unittest.TestCase):
+    # Simple (V, E)
+    # Catégories:
+    # -V: pour le nombres de sommets du graphe
+    # -E: le nombre d’arêtes
+
+    # Choix:
+    # V(1) : V > 0			    [properties: nbVerticesOk]
+    # V(2) : V = 0			    [properties: nbVertices0]
+    # V(3) : V < 0			    [error]
+
+    # E(1) : 0 < E < V*(V-1)/2	[si nbVerticesOk]
+    # E(2) : E = 0			    [si nbVertices0]
+    # E(3) : E < 0			    [error]
+    # E(4):  E > V*(V-1)/2		[erreur]
+
     def setUp(self):
         self.simpleGraph = None
         self.exceptionRaised = False
