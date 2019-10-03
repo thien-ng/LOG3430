@@ -118,7 +118,7 @@ class TestGraphSimple(unittest.TestCase):
         self.assertFalse(self.exceptionRaised)
 
 class TestEulerianCycle(unittest.TestCase):
-
+    # eulerianCycle(V, E)
     # Categories:
     # V: V Nombre de sommet dans le cycle
     # E: E Nombre d'arret dans le cycle
@@ -150,7 +150,7 @@ class TestEulerianCycle(unittest.TestCase):
         self.assertFalse(isExceptionRaised)
 
 class TestRegular(unittest.TestCase):
-
+    # regular(V, K)
     # Categories:
     # V: V Nombre de sommet dans le graph
     # K: K degree du sommet

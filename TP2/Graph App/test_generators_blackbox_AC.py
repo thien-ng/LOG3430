@@ -347,7 +347,7 @@ class TestBipartiteWithProbability(unittest.TestCase):
          self.assertRaises(ValueError, bipartite_with_probability, 6, 4, 1.8)  
 
 class TestEulerianCycle(unittest.TestCase):
-
+    # eulerianCycle(V, E)
     # Categories:
     # V: V the number of vertices in the cycle
     # E: E the number of edges in the cycle
@@ -397,7 +397,7 @@ class TestEulerianCycle(unittest.TestCase):
         self.assertFalse(isExceptionRaised)
 
 class TestRegular(unittest.TestCase):
-
+    # regular(V, K)
     # Categories:
     # V: V Nombre de sommet dans le graph
     # K: K degree du sommet
