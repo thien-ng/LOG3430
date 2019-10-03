@@ -19,12 +19,11 @@ import models
 
 class TestGraphSimple(unittest.TestCase):
     def setUp(self):
-        self.simpleGraph = None
         self.exceptionRaised = False
 
     def test_when_generate_simple_graph_with_positive_nb_of_edges_and_positive_nb_of_vertices(self):
         try:
-            self.simpleGraph = simple(3, 3)
+            simple(3, 3)
         except:
             self.exceptionRaised = True
         self.assertFalse(self.exceptionRaised)
