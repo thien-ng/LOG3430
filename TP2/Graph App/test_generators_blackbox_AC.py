@@ -2,6 +2,148 @@ from generators import *
 import unittest
 import models
 
+class TestSimple(unittest.TestCase):
+    # Simple (V, E)
+    # Catégories:
+    # -V: pour le nombres de sommets du graphe
+    # -E: le nombre d’arêtes
+
+    # Choix:
+    # V(1) : V > 0			    [properties: nbVerticesOk]
+    # V(2) : V = 0			    [properties: nbVertices0]
+    # V(3) : V < 0			    [error]
+
+    # E(1) : 0 < E < V*(V-1)/2	[si nbVerticesOk]
+    # E(2) : E = 0			    [si nbVertices0]
+    # E(3) : E < 0			    [error]
+    # E(4):  E > V*(V-1)/2		[error]
+
+    def setUp(self):
+        self.exceptionRaised = False
+
+    def test_when_generate_simple_graph_with_V1_and_E1(self):
+        try:
+            simple(4, 3)
+        except:
+            self.exceptionRaised = True
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_simple_graph_with_V1_and_E2(self):
+        try:
+            simple(4, 0)
+        except:
+            self.exceptionRaised = True
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_simple_graph_with_V1_and_E3(self):
+        self.assertRaises(ValueError, simple, 3, -1)
+
+    def test_when_generate_simple_graph_with_V1_and_E4(self):
+        self.assertRaises(ValueError, simple, 3, 4)
+
+    def test_when_generate_simple_graph_with_V2_and_E1(self):
+        try:
+            simple(0, 0)
+        except:
+            self.exceptionRaised = True
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_simple_graph_with_V2_and_E2(self):
+        try:
+            simple(0, 0)
+        except:
+            self.exceptionRaised = True
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_simple_graph_with_V2_and_E3(self):
+        self.assertRaises(ValueError, simple, 0, -4)
+
+    def test_when_generate_simple_graph_with_V2_and_E4(self):
+        self.assertRaises(ValueError, simple, 0, 4)
+
+    def test_when_generate_simple_graph_with_V3_and_E1(self):
+        self.assertRaises(ValueError, simple, -1, 0)
+
+    def test_when_generate_simple_graph_with_V3_and_E2(self):
+        self.assertRaises(ValueError, simple, -2, -1)
+
+    def test_when_generate_simple_graph_with_V3_and_E3(self):
+        self.assertRaises(ValueError, simple, -1, -1)
+
+    def test_when_generate_simple_graph_with_V3_and_E4(self):
+        self.assertRaises(ValueError, simple, -1, 2)
+
+class TestSimpleWithProbability(unittest.TestCase):
+    # simple with probability (V, p)
+    # Catégories:
+    # -V: pour le nombres de sommets du graphe
+    # -p: la probabilité d’avoir une arête entre deux sommets
+
+    # Choix:
+    # V(1) : V < 0		[erreur]
+    # V(2) : V = 0		[properties: nbVertices0]
+    # V(3) : V > 0		[properties: nbVerticesOk]
+
+    # p(1) : p < 0		[erreur]
+    # p(2) : p = 0		[si nbVertices0]
+    # p(3) : 0 < p <= 1	[si nbVerticesOk]
+    # p(4) : p > 1		[si nbVerticesOk]
+
+    def setUp(self):
+        self.exceptionRaised = False
+
+    def test_when_generate_simple_graph_with_probability_with_V1_and_p1(self):
+        self.assertRaises(ValueError, simple_with_probability, -1, -1)
+
+    def test_when_generate_simple_graph_with_probability_with_V1_and_p2(self):
+        self.assertRaises(ValueError, simple_with_probability, -1, 0)
+
+    def test_when_generate_simple_graph_with_probability_with_V1_and_p3(self):
+        self.assertRaises(ValueError, simple_with_probability, -1, 0.4)
+
+    def test_when_generate_simple_graph_with_probability_with_V1_and_p4(self):
+        self.assertRaises(ValueError, simple_with_probability, -1, 2)
+
+    def test_when_generate_simple_graph_with_probability_with_V2_and_p1(self):
+        self.assertRaises(ValueError, simple_with_probability, 0, -1)
+
+    def test_when_generate_simple_graph_with_probability_with_V2_and_p2(self):
+        try:
+            simple_with_probability(0, 0)
+        except:
+            self.exceptionRaised = True
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_simple_graph_with_probability_with_V2_and_p3(self):
+        try:
+            simple_with_probability(0, 0.4)
+        except:
+            self.exceptionRaised = True
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_simple_graph_with_probability_with_V2_and_p4(self):
+        self.assertRaises(ValueError, simple_with_probability, 0, 2)
+        
+    def test_when_generate_simple_graph_with_probability_with_V3_and_p1(self):
+        self.assertRaises(ValueError, simple_with_probability, 3, -1)
+
+    def test_when_generate_simple_graph_with_probability_with_V3_and_p2(self):
+        try:
+            simple_with_probability(3, 0)
+        except:
+            self.exceptionRaised = True
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_simple_graph_with_probability_with_V3_and_p3(self):
+        try:
+            simple_with_probability(3, 0.5)
+        except:
+            self.exceptionRaised = True
+        self.assertFalse(self.exceptionRaised)
+
+    def test_when_generate_simple_graph_with_probability_with_V3_and_p4(self):
+        self.assertRaises(ValueError, simple_with_probability, 3, 3)
+    
 class TestBipartite(unittest.TestCase): 
 
     # bipartite (V1, V2, E)
