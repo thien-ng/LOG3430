@@ -192,13 +192,13 @@ class TestEulerianCycle(unittest.TestCase):
     # E(2): {E = 0}	[Error]
     # E(3): {E > 0}	[properties: nbEdgesOk]
     
-    def test_when_generate_eulerian_cycle_with_negative_vertex_and_negative_edge_should_raise_ValueError(self):
+    def test_when_generate_eulerian_cycle_with_V1_E1(self):
         self.assertRaises(ValueError, eulerianCycle, -5, -1)
     
-    def test_when_generate_eulerian_cycle_with_0_vertex_and_0_edge_should_raise_ValueError(self):
+    def test_when_generate_eulerian_cycle_with_V2_E2(self):
         self.assertRaises(ValueError, eulerianCycle, 0, 0)
     
-    def test_when_generate_eulerian_cycle_with_positive_vertex_and_positive_edge_should_return_graph(self):
+    def test_when_generate_eulerian_cycle_with_V3_E3(self):
         
         isExceptionRaised = False
         
@@ -210,7 +210,7 @@ class TestEulerianCycle(unittest.TestCase):
         self.assertFalse(isExceptionRaised)
     
     # Test added for uncovered line when running coverage run of EC
-    def test_when_generate_eulerian_cycle_with_positive_vertex_and_negative_edge_should_raise_ValueError(self):
+    def test_when_generate_eulerian_cycle_with_V1_E3(self):
         self.assertRaises(ValueError, eulerianCycle, -1, 2)
 
 class TestRegular(unittest.TestCase):
@@ -232,13 +232,13 @@ class TestRegular(unittest.TestCase):
     # K(4): {K nombre pair positive}
     # K(5): {K nombre impair positive}
 
-    def test_when_generate_regular_with_negative_even_vertex_and_negative_even_degree_should_raise_ValueError(self):
+    def test_when_generate_regular_with_V1_K1(self):
         self.assertRaises(ValueError, regular, -2, -2)
 
-    def test_when_generate_regular_with_negative_odd_vertex_and_negative_odd_degree_should_raise_ValueError(self):
+    def test_when_generate_regular_with_V2_K2(self):
         self.assertRaises(ValueError, regular, -1, -1)
 
-    def test_when_generate_regular_with_0_vertex_and_0_degree_should_raise_ValueError(self):
+    def test_when_generate_regular_with_V3_K3(self):
     
         isExceptionRaised = False
         
@@ -249,7 +249,7 @@ class TestRegular(unittest.TestCase):
         
         self.assertFalse(isExceptionRaised)
 
-    def test_when_generate_regular_with_positive_even_vertex_and_positive_even_degree_should_raise_ValueError(self):
+    def test_when_generate_regular_with_V4_K4(self):
 
         isExceptionRaised = False
         
@@ -260,7 +260,7 @@ class TestRegular(unittest.TestCase):
         
         self.assertFalse(isExceptionRaised)
 
-    def test_when_generate_regular_with_positive_odd_vertex_and_positive_odd_degree_should_raise_ValueError(self):
+    def test_when_generate_regular_with_V5_K5(self):
         self.assertRaises(ValueError, regular, 1, 1)
 
 if __name__ == '__main__':
