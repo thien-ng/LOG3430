@@ -188,7 +188,6 @@ class TestBipartite(unittest.TestCase):
         self.assertRaises(ValueError, bipartite, -4, 0, 0)
 
     def test_when_generate_bipartite_graph_with_V11_V22_E3(self):
-        #à vérifier
         self.assertRaises(ValueError, bipartite, -4, 0, 0)
 
     def test_when_generate_bipartite_graph_with_V11_V22_E4(self):
@@ -201,7 +200,6 @@ class TestBipartite(unittest.TestCase):
         self.assertRaises(ValueError, bipartite, -4, 2, 0)
 
     def test_when_generate_bipartite_graph_with_V11_V23_E3(self):
-        #cas impossible??
         self.assertRaises(ValueError, bipartite, -4, 2, 6)
 
     def test_when_generate_bipartite_graph_with_V11_V23_E4(self):
@@ -214,7 +212,6 @@ class TestBipartite(unittest.TestCase):
         self.assertRaises(ValueError, bipartite, 0, -2, 0)
 
     def test_when_generate_bipartite_graph_with_V12_V21_E3(self):
-        #à vérifier
         self.assertRaises(ValueError, bipartite, 0, -2, 6)
 
     def test_when_generate_bipartite_graph_with_V12_V21_E4(self):
@@ -232,7 +229,6 @@ class TestBipartite(unittest.TestCase):
         self.assertFalse(self.exceptionRaised)
 
     def test_when_generate_bipartite_graph_with_V12_V22_E3(self):
-        #à vérifier
         self.assertRaises(ValueError, bipartite, 0, 0, 6)
 
     def test_when_generate_bipartite_graph_with_V12_V22_E4(self):
@@ -250,7 +246,6 @@ class TestBipartite(unittest.TestCase):
         self.assertFalse(self.exceptionRaised)
 
     def test_when_generate_bipartite_graph_with_V12_V23_E3(self):
-        #à vérifier
         self.assertRaises(ValueError, bipartite, 0, 4, 6)
 
     def test_when_generate_bipartite_graph_with_V12_V23_E4(self):
@@ -263,7 +258,6 @@ class TestBipartite(unittest.TestCase):
         self.assertRaises(ValueError, bipartite, 6, -2, 0)
 
     def test_when_generate_bipartite_graph_with_V13_V21_E3(self):
-        #cas impossible?
         self.assertRaises(ValueError, bipartite, 6, -2, 6)
 
     def test_when_generate_bipartite_graph_with_V13_V21_E4(self):
@@ -281,7 +275,6 @@ class TestBipartite(unittest.TestCase):
         self.assertFalse(self.exceptionRaised)
 
     def test_when_generate_bipartite_graph_with_V13_V22_E3(self):
-        #à vérifier
         self.assertRaises(ValueError, bipartite, 6, 0, 6)
 
     def test_when_generate_bipartite_graph_with_V13_V22_E4(self):
