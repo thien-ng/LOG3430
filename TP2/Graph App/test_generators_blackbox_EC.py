@@ -183,7 +183,7 @@ class TestEulerianCycle(unittest.TestCase):
     # E(2): {E = 0}	[Error]
     # E(3): {E > 0}	[properties: nbEdgesOk]
     
-    def test_when_generate_eulerian_cycle_with_negative_vertex_and_nagative_edge_should_raise_ValueError(self):
+    def test_when_generate_eulerian_cycle_with_negative_vertex_and_negative_edge_should_raise_ValueError(self):
         self.assertRaises(ValueError, eulerianCycle, -5, -1)
     
     def test_when_generate_eulerian_cycle_with_0_vertex_and_0_edge_should_raise_ValueError(self):
@@ -199,6 +199,10 @@ class TestEulerianCycle(unittest.TestCase):
             isExceptionRaised = True
         
         self.assertFalse(isExceptionRaised)
+    
+    # Test added for uncovered line when running coverage run of EC
+    def test_when_generate_eulerian_cycle_with_positive_vertex_and_negative_edge_should_raise_ValueError(self):
+        self.assertRaises(ValueError, eulerianCycle, -1, 2)
 
 class TestRegular(unittest.TestCase):
     # regular(V, K)
