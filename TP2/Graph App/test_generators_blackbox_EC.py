@@ -168,6 +168,15 @@ class TestBipartiteWithProbability(unittest.TestCase):
     def test_when_generate_bipartite_graph_with_V13_V23_p4(self):
         self.assertRaises(ValueError, bipartite_with_probability, 5, 2, 8)
 
+    #test boite blanche à rajouter pour compléter la couverture
+    def test_when_generate_bipartite_graph_with_V13_V23_p3(self):
+        try:
+            bipartite_with_probability(5, 2, 0.8)
+        except:
+            self.exceptionRaised = True
+        
+        self.assertFalse(self.exceptionRaised)
+
 class TestEulerianCycle(unittest.TestCase):
     # eulerianCycle(V, E)
     # Categories:
