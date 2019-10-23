@@ -36,6 +36,15 @@ class TestQueue(unittest.TestCase):
 
         self.assertEqual(queue.first.value, "item")
 
+    def test_full_rapporteur_isFull(self):
+        queue = Queue()
+        
+        self.assertFalse(queue.isFull())
+
+    def test_full_constructeur_init(self):
+        queue = Queue()
+
+        self.assertFalse(queue.full)
         
 
 
