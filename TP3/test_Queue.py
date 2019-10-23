@@ -107,7 +107,8 @@ class TestQueue(unittest.TestCase):
         queue.dequeue()
 
         self.assertIsNone(queue.last)
-
+    
+    #full
     def test_full_rapporteur_isFull(self):
         queue = Queue()
         
@@ -132,6 +133,7 @@ class TestQueue(unittest.TestCase):
 
         self.assertIsNone(queue.last)
 
+    #empty
     def test_empty_rapporteur_isEmpty(self):
         queue = Queue()
 
@@ -150,6 +152,7 @@ class TestQueue(unittest.TestCase):
 
 
     def test_empty_transformateur_dequeue(self):
+        
 
 
 if __name__ == '__main__':
