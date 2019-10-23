@@ -20,6 +20,7 @@ class testNode(unittest.TestCase):
 
 class TestQueue(unittest.TestCase):
 
+    # first
     def test_first_rapporteur_checkFirst(self):
         queue = Queue()
         queue.empty = False
@@ -37,6 +38,41 @@ class TestQueue(unittest.TestCase):
 
         self.assertEqual(queue.first.value, "item")
 
+    def test_first_transformateur_dequeue(self):
+        queue = Queue()
+        queue.enqeue("item")
+        queue.dequeue()
+
+        self.assertIsNone(queue.first)
+
+    # last
+    def test_last_rapporteur_checkLast(self):
+        queue = Queue()
+        queue.enqeue("item1")
+        queue.enqeue("item2")
+        
+        self.assertEqual(queue.last.value, "item2")
+
+    def test_last_constructeur_init(self):
+        queue = Queue()
+
+        self.assertIsNone(queue.last)
+
+    def test_last_transformateur_enqueue(self):
+        queue = Queue()
+        queue.enqeue("item1")
+        queue.enqeue("item2")
+
+        self.assertEqual(queue.last.value, "item2")
+
+    def test_last_transformateur_dequeue(self):
+        queue = Queue()
+        queue.enqeue("item1")
+        queue.enqeue("item2")
+        queue.dequeue()
+
+        self.assertIsNone(queue.last)
+
     def test_full_rapporteur_isFull(self):
         queue = Queue()
         
@@ -51,7 +87,34 @@ class TestQueue(unittest.TestCase):
         queue = Queue()
         queue.enqeue("item")
 
-        self.assertEqual(queue.first.value, "item")
+        self.assertFalse(queue.full)
+
+    def test_full_transformateur_enqueue(self):
+        queue = Queue()
+        queue.enqeue("item1")
+        queue.enqeue("item2")
+        queue.dequeue()
+
+        self.assertIsNone(queue.last)
+
+    def test_empty_rapporteur_isEmpty(self):
+        queue = Queue()
+
+        self.assertTrue(queue.isEmpty())
+
+    def test_empty_constructeur_init(self):
+        queue = Queue()
+
+        self.assertTrue(queue.empty)
+
+    def test_empty_transformateur_enqueue(self):
+        queue = Queue()
+        queue.enqeue("item")
+
+        self.assertFalse(queue.empty)
+
+
+    def test_empty_transformateur_dequeue(self):
 
 
 if __name__ == '__main__':
