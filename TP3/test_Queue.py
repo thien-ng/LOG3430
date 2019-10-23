@@ -44,6 +44,35 @@ class TestQueue(unittest.TestCase):
         queue.dequeue()
 
         self.assertIsNone(queue.first)
+    
+    # last
+    def test_last_rapporteur_checkLast(self):
+        queue = Queue()
+        queue.enqeue("item1")
+        queue.enqeue("item2")
+        
+        self.assertEqual(queue.last.value, "item2")
+
+    def test_last_constructeur_init(self):
+        queue = Queue()
+
+        self.assertIsNone(queue.last)
+
+    def test_last_transformateur_enqueue(self):
+        queue = Queue()
+        queue.enqeue("item1")
+        queue.enqeue("item2")
+
+        self.assertEqual(queue.last.value, "item2")
+
+    def test_last_transformateur_dequeue(self):
+        queue = Queue()
+        queue.enqeue("item1")
+        queue.enqeue("item2")
+        queue.dequeue()
+
+        self.assertIsNone(queue.last)
+    
     # n
     def test_n_rapporteur_size(self):
         queue = Queue()
@@ -80,34 +109,6 @@ class TestQueue(unittest.TestCase):
         queue.enqeue("item")
         self.assertTrue(queue.hasOne())
 
-    # last
-    def test_last_rapporteur_checkLast(self):
-        queue = Queue()
-        queue.enqeue("item1")
-        queue.enqeue("item2")
-        
-        self.assertEqual(queue.last.value, "item2")
-
-    def test_last_constructeur_init(self):
-        queue = Queue()
-
-        self.assertIsNone(queue.last)
-
-    def test_last_transformateur_enqueue(self):
-        queue = Queue()
-        queue.enqeue("item1")
-        queue.enqeue("item2")
-
-        self.assertEqual(queue.last.value, "item2")
-
-    def test_last_transformateur_dequeue(self):
-        queue = Queue()
-        queue.enqeue("item1")
-        queue.enqeue("item2")
-        queue.dequeue()
-
-        self.assertIsNone(queue.last)
-    
     #full
     def test_full_rapporteur_isFull(self):
         queue = Queue()
@@ -125,7 +126,7 @@ class TestQueue(unittest.TestCase):
 
         self.assertFalse(queue.full)
 
-    def test_full_transformateur_enqueue(self):
+    def test_full_transformateur_dequeue(self):
         queue = Queue()
         queue.enqeue("item1")
         queue.enqeue("item2")
