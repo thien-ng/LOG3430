@@ -3,7 +3,7 @@ import unittest
 
 class testNode(unittest.TestCase):
 
-    def test_value_constructor_init(self):
+    def test_value_constructeur_init(self):
         node = Node("testValue")
 
         self.assertEqual(node.value, "testValue")
@@ -16,14 +16,25 @@ class testNode(unittest.TestCase):
     def test_next_constructor_init(self):
         node = Node("testValue")
 
-        self.assertIsNone(node.next);
+        self.assertIsNone(node.next)
 
 class TestQueue(unittest.TestCase):
 
     def test_first_rapporteur_checkFirst(self):
         queue = Queue()
 
-        self.assertEqual()
+        self.assertIsNone(queue.check_first)
+
+    def test_first_constructeur__init(self):
+        queue = Queue()
+
+        self.assertIsNone(queue.first)
+    
+    def test_first_transformateur_enqueue(self):
+        queue = Queue()
+        queue.enqeue("item")
+
+        self.assertEqual(queue.first.value, "item")
 
         
 
