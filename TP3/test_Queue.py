@@ -51,7 +51,7 @@ class TestQueue(unittest.TestCase):
         queue.enqeue("item1")
         queue.enqeue("item2")
         
-        self.assertEqual(queue.last.value, "item2")
+        self.assertEqual(queue.check_last().value, "item2")
 
     def test_last_constructeur_init(self):
         queue = Queue()
@@ -72,6 +72,8 @@ class TestQueue(unittest.TestCase):
         queue.dequeue()
 
         self.assertIsNone(queue.last)
+
+
     
     # n
     def test_n_rapporteur_size(self):
