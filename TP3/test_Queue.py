@@ -2,7 +2,7 @@ from Queue import *
 import unittest
 
 class testNode(unittest.TestCase):
-
+    # value
     def test_value_constructeur_init(self):
         node = Node("testValue")
 
@@ -12,7 +12,7 @@ class testNode(unittest.TestCase):
         node = Node(1)
 
         self.assertEqual(node.__str__(), "1")
-
+    # next
     def test_next_constructeur_init(self):
         node = Node("testValue")
 
