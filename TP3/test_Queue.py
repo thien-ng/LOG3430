@@ -6,12 +6,12 @@ class testNode(unittest.TestCase):
     def test_value_constructor_init(self):
         node = Node("testValue")
 
-        self.assertEquals(node.value, "testValue")
+        self.assertEqual(node.value, "testValue")
 
     def test_value_autre_str(self):
         node = Node(1)
 
-        self.assertEquals(node.__str__(), "1")
+        self.assertEqual(node.__str__(), "1")
 
     def test_next_constructor_init(self):
         node = Node("testValue")
@@ -21,7 +21,9 @@ class testNode(unittest.TestCase):
 class TestQueue(unittest.TestCase):
 
     def test_first_rapporteur_checkFirst(self):
-        queue = Queue();
+        queue = Queue()
+
+        self.assertEqual()
 
         
 
