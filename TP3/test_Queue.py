@@ -22,8 +22,9 @@ class TestQueue(unittest.TestCase):
 
     def test_first_rapporteur_checkFirst(self):
         queue = Queue()
+        queue.empty = False
 
-        self.assertIsNone(queue.check_first)
+        self.assertIsNone(queue.check_first())
 
     def test_first_constructeur__init(self):
         queue = Queue()
@@ -35,6 +36,8 @@ class TestQueue(unittest.TestCase):
         queue.enqeue("item")
 
         self.assertEqual(queue.first.value, "item")
+
+    # def test_first_transformateur_dequeue(self):
 
         
 
