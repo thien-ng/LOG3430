@@ -73,8 +73,6 @@ class TestQueue(unittest.TestCase):
 
         self.assertIsNone(queue.last)
 
-
-    
     # n
     def test_n_rapporteur_size(self):
         queue = Queue()
@@ -170,6 +168,29 @@ class TestQueue(unittest.TestCase):
 
         self.assertRaises(ValueError, queue.check_last)
 
+    
+    ### Ajouté pour la question 4 ###
+    
+    def test_enqueue_when_queue_is_full(self):
+        queue = Queue()
+        
+        for i in range(queue.MAX):
+            queue.enqeue(i)
+
+        self.assertRaises(ValueError, queue.enqeue, "item")
+
+    def test_dequeue_when_queue_isEmpty(self):
+        queue = Queue()
+
+        self.assertRaises(ValueError, queue.dequeue)
+
+    def test_dequeue_when_size_is_more_than_two(self):
+        queue = Queue()
+        
+        for i in range(10):
+            queue.enqeue(i)
+
+        self.assertEquals(queue.dequeue(), 0)
 
 if __name__ == '__main__':
     unittest.main()
