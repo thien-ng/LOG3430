@@ -44,7 +44,7 @@ class TestQueue(unittest.TestCase):
         queue.dequeue()
 
         self.assertIsNone(queue.first)
-
+    # n
     def test_n_rapporteur_size(self):
         queue = Queue()
 
