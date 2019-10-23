@@ -150,9 +150,22 @@ class TestQueue(unittest.TestCase):
 
         self.assertFalse(queue.empty)
 
-
     def test_empty_transformateur_dequeue(self):
-        
+        queue = Queue()
+        queue.enqeue("item")
+        queue.dequeue()
+
+        self.assertTrue(queue.empty)
+
+    def test_empty_autre_check_first(self):
+        queue = Queue()
+
+        self.assertRaises(ValueError, queue.check_first)
+
+    def test_empty_autre_check_lase(self):
+        queue = Queue()
+
+        self.assertRaises(ValueError, queue.check_last)
 
 
 if __name__ == '__main__':
