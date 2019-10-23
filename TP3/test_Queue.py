@@ -20,6 +20,7 @@ class testNode(unittest.TestCase):
 
 class TestQueue(unittest.TestCase):
 
+    # first
     def test_first_rapporteur_checkFirst(self):
         queue = Queue()
         queue.empty = False
@@ -37,7 +38,12 @@ class TestQueue(unittest.TestCase):
 
         self.assertEqual(queue.first.value, "item")
 
-    # def test_first_transformateur_dequeue(self):
+    def test_first_transformateur_dequeue(self):
+        queue = Queue()
+        queue.enqeue("item")
+        queue.dequeue()
+
+        self.assertIsNone(queue.first)
 
     def test_n_rapporteur_size(self):
         queue = Queue()
@@ -74,6 +80,34 @@ class TestQueue(unittest.TestCase):
         queue.enqeue("item")
         self.assertTrue(queue.hasOne())
 
+    # last
+    def test_last_rapporteur_checkLast(self):
+        queue = Queue()
+        queue.enqeue("item1")
+        queue.enqeue("item2")
+        
+        self.assertEqual(queue.last.value, "item2")
+
+    def test_last_constructeur_init(self):
+        queue = Queue()
+
+        self.assertIsNone(queue.last)
+
+    def test_last_transformateur_enqueue(self):
+        queue = Queue()
+        queue.enqeue("item1")
+        queue.enqeue("item2")
+
+        self.assertEqual(queue.last.value, "item2")
+
+    def test_last_transformateur_dequeue(self):
+        queue = Queue()
+        queue.enqeue("item1")
+        queue.enqeue("item2")
+        queue.dequeue()
+
+        self.assertIsNone(queue.last)
+    
 
 
 if __name__ == '__main__':
