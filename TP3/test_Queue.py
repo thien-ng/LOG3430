@@ -190,7 +190,7 @@ class TestQueue(unittest.TestCase):
         for i in range(10):
             queue.enqeue(i)
 
-        self.assertEquals(queue.dequeue(), 0)
+        self.assertEqual(queue.dequeue(), 0)
 
 if __name__ == '__main__':
     unittest.main()
