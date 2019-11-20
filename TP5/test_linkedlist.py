@@ -2,7 +2,8 @@ import unittest
 from app import *
 
 class TestLinkedList(unittest.TestCase):
-     def setUp(self):
+    
+    def setUp(self):
         self.LinkedList = LinkedList()
 
     def testInit(self):
@@ -10,7 +11,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.LinkedList.n, 0)
 
     def test_isEmpty(self):
-        self.assertEqual(self.LinkedList.isEmpty(), 0)
+        self.assertTrue(self.LinkedList.isEmpty())
 
     def test_size(self):
         self.LinkedList.append("value")
@@ -18,20 +19,24 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.LinkedList.size(), 2)
 
     def test_check(self):
-        self.assertEqual(linkedList.check(), linkedList.first)
+        self.LinkedList.append("value")
+        self.LinkedList.append("value2")
+        self.assertEqual(self.LinkedList.check(), self.LinkedList.first)
 
     def test_peek(self):
-        self.assertEqual(linkedList.peek(), "value")
+        self.LinkedList.append("value")
+        self.LinkedList.append("value2")
+        self.assertEqual(self.LinkedList.peek(), "value")
 
     def test_append(self):
         self.LinkedList.append("value3")
-        self.assertEqual(self.LinkedList.size(), 2)
+        self.assertEqual(self.LinkedList.size(), 1)
 
     def test_prepend(self):
         self.LinkedList.prepend("value4")
-        self.assertEqual(self.LinkedList.size(), 3)
+        self.assertEqual(self.LinkedList.size(), 1)
 
-    def test_accept(self): # comment faut il le tester?
+    # def test_accept(self): # comment faut il le tester?
 
 if __name__ == '__main__':
     unittest.main()

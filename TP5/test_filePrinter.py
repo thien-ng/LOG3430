@@ -1,7 +1,7 @@
 import unittest
 from app import *
 
-class TestPrinter(unittest.TestCase):
+class TestFilePrinter(unittest.TestCase):
 
     def testInit(self):
         printer = FilePrinter("file.txt", "name")
