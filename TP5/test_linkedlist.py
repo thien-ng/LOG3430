@@ -3,7 +3,7 @@ from app import *
 
 class TestLinkedList(unittest.TestCase):
     
-    def setUp(self):
+    def setUp(self): 
         self.LinkedList = LinkedList()
 
     def testInit(self):
@@ -36,7 +36,6 @@ class TestLinkedList(unittest.TestCase):
         self.LinkedList.prepend("value4")
         self.assertEqual(self.LinkedList.size(), 1)
 
-    def test_accept(self): # comment faut il le tester?
 
 if __name__ == '__main__':
     unittest.main()
