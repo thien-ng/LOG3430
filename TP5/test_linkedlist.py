@@ -36,7 +36,7 @@ class TestLinkedList(unittest.TestCase):
         self.LinkedList.prepend("value4")
         self.assertEqual(self.LinkedList.size(), 1)
 
-    # def test_accept(self): # comment faut il le tester?
+    def test_accept(self): # comment faut il le tester?
 
 if __name__ == '__main__':
     unittest.main()
