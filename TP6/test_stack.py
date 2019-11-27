@@ -13,6 +13,8 @@ class TestStack(unittest.TestCase):
     def test_isFull(self):
         self.assertFalse(self.stack.isFull())
     
-
+    def test_push(self):
+        self.stack.push("value")
+        self.assertEqual(self.stack.size(), 1)
 if __name__ == '__main__':
     unittest.main()

@@ -226,21 +226,21 @@ class Calculator:
 			return merged_stack
 		elif isinstance(first_list,List) and isinstance(second_list,List):
 			merged_list = List()
-			current_first = first_list.first
-			current_second = second_list.first
-			while current_first and current_second:
+			first_index = 0
+			second_index = 0
+			while (first_index < first_list.n) and (second_index < second_list.n):
 				if rand.uniform(0,1) < 0.5:
-					merged_list.append(current_first.value)
-					current_first = current_first.next
+					merged_list.append(first_list.list[first_index])
+					first_index = first_index + 1
 				else:
-					merged_list.append(current_second.value)
-					current_second = current_second.next
-			while current_first:
-				merged_list.append(current_first.value)
-				current_first = current_first.next
-			while current_second:
-				merged_list.append(current_second.value)
-				current_second = current_second.next
+					merged_list.append(second_list.list[second_index])
+					second_index = second_index + 1
+			while first_index < first_list.n:
+				merged_list.append(first_list.list[first_index])
+				first_index = first_index + 1
+			while second_index < second_list.n:
+				merged_list.append(second_list.list[second_index])
+				second_index = second_index + 1
 			return merged_list
 		else:
 			raise ValueError('The types of both lists are different')
