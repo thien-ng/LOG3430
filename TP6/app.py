@@ -98,12 +98,11 @@ class Stack(List):
 			print("Stack underflow")
 
 class AutoAdaptiveStack(Stack): 
-
-	def __init__(self, max_trials, size_increment, *args, **kwargs):
+	def __init__(self, max_trials, size_increment, *args, **kwargs, size_rejected_queue):
 		self.max_trials = max_trials
 		self.size_increment = size_increment
 		self.trials = 0
-		self.rejected = Queue(4) 
+		self.rejected = Queue(size_rejected_queue) 
 		super(AutoAdaptiveStack, self).__init__(*args, **kwargs)
 
 	def push(self, item):
@@ -121,6 +120,15 @@ class AutoAdaptiveStack(Stack):
 				self.trials = 0
 				while (not self.isFull or not self.rejected.isEmpty()):
 					self.prepend(self.rejected.dequeue())
+
+	def pop(self):
+		if self.isEmpty():
+			raise ValueError("Stack underflow")
+		item = self.list.pop(0)
+		if self.rejected.isEmpty():
+			self.n -= 1
+		else:
+			self.push(self.rejected.dequeue())
 
 class AutoAdaptiveQueue(Queue): 
 
@@ -146,7 +154,15 @@ class AutoAdaptiveQueue(Queue):
 				self.trials = 0
 				while (not self.isFull or not self.rejected.isEmpty()):
 							self.prepend(self.rejected.dequeue())
-							
+
+	def dequeue(self):
+		if self.isEmpty():
+			raise ValueError("Stack underflow")
+		item = self.list.pop(0)
+		if self.rejected.isEmpty():
+			self.n -= 1
+		else:
+			self.push(self.rejected.dequeue())						
 class Printer(object, metaclass=abc.ABCMeta):
 	def __init__(self, name):
 		self.name = name
