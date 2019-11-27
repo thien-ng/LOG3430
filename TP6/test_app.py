@@ -5,8 +5,8 @@ import unittest
 # from test_queue             import TestQueue
 from test_stack             import TestStack
 from test_calculator        import TestCalculator
-from test_autoAdaptiveQueue import TestAutoAdaptiveQueue
-from test_autoAdaptiveStack import TestAutoAdaptiveStack
+from test_autoadaptivequeue import TestAutoAdaptiveQueue
+from test_autoadaptivestack import TestAutoAdaptiveStack
 from test_screenPrinter     import TestScreenPrinter
 from test_filePrinter       import TestFilePrinter
 
