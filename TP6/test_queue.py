@@ -11,7 +11,7 @@ class TestQueue(unittest.TestCase):
 
     def testEnqueue(self):
         self.Queue.enqueue(2)
-        self.assertEqual(self.Queue.first.__str__(),'2')
+        self.assertEqual(self.Queue.list[0].__str__(),'2')
 
     def testDequeue(self):
         self.Queue.enqueue(1)

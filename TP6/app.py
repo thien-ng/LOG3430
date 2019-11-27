@@ -1,14 +1,7 @@
 import random as rand
 import abc
 
-class Node:
-	def __init__(self, value):
-		self.value = value
-		self.next = None # the pointer initially points to nothing
-
-	def __str__(self):
-		return str(self.value)
-
+# La classe Node n'est plus néssaire
 class List : 
 	# Initializes an empty list.
 	def __init__(self):
@@ -47,6 +40,7 @@ class List :
 		else:
 			self.list.insert(0, item)
 		self.n += 1
+		print("n+1")
 
 	def accept(self, visitor):
 		visitor.visit(self)
@@ -98,11 +92,11 @@ class Stack(List):
 			print("Stack underflow")
 
 class AutoAdaptiveStack(Stack): 
-	def __init__(self, max_trials, size_increment, *args, **kwargs, size_rejected_queue):
+	def __init__(self, max_trials, size_increment, max_size_rejected_queue, *args, **kwargs):
 		self.max_trials = max_trials
 		self.size_increment = size_increment
 		self.trials = 0
-		self.rejected = Queue(size_rejected_queue) 
+		self.rejected = Queue(max_size_rejected_queue) 
 		super(AutoAdaptiveStack, self).__init__(*args, **kwargs)
 
 	def push(self, item):
@@ -124,19 +118,18 @@ class AutoAdaptiveStack(Stack):
 	def pop(self):
 		if self.isEmpty():
 			raise ValueError("Stack underflow")
-		item = self.list.pop(0)
-		if self.rejected.isEmpty():
-			self.n -= 1
-		else:
+		item = self.peek()
+		if not self.rejected.isEmpty():
 			self.push(self.rejected.dequeue())
+		return item
 
 class AutoAdaptiveQueue(Queue): 
 
-	def __init__(self, max_trials, size_increment, *args, **kwargs):
+	def __init__(self, max_trials, size_increment,  max_size_rejected_queue, *args, **kwargs):
 		self.max_trials = max_trials
 		self.size_increment = size_increment
 		self.trials = 0
-		self.rejected = Queue(4) 
+		self.rejected = Queue(max_size_rejected_queue) 
 		super(AutoAdaptiveQueue, self).__init__(*args, **kwargs)
 
 	def enqueue(self, item):
@@ -162,11 +155,14 @@ class AutoAdaptiveQueue(Queue):
 		if self.rejected.isEmpty():
 			self.n -= 1
 		else:
-			self.push(self.rejected.dequeue())						
+			self.enqueue(self.rejected.dequeue())	
+		return item					
+
 class Printer(object, metaclass=abc.ABCMeta):
 	def __init__(self, name):
 		self.name = name
 
+	# La fonction n'utilisent plus les nodes pour faire les iterations
 	def visit(self, list_obj):
 		if isinstance(list_obj, Stack):
 			display_message = "\n-------\n"
