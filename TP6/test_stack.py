@@ -16,5 +16,9 @@ class TestStack(unittest.TestCase):
     def test_push(self):
         self.stack.push("value")
         self.assertEqual(self.stack.size(), 1)
+
+    def test_pop(self):
+        self.stack.push("value")
+        self.assertEqual(self.stack.pop(), "value")
 if __name__ == '__main__':
     unittest.main()
