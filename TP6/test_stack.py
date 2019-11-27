@@ -2,23 +2,21 @@ import unittest
 from app import *
 
 class TestStack(unittest.TestCase):
-    def setUp(self):
-        self.stack = Stack(4)
-
-    def test_init(self):
-        self.assertEqual(self.stack.max_size, 4)
-        self.assertEqual(self.stack.n, 0)
-        self.assertEqual(self.stack.list, [])           
-
-    def test_isFull(self):
-        self.assertFalse(self.stack.isFull())
+    def testInit(self):
+        stack = Stack(1)
+        self.assertEqual(stack.max_size, 1)
+        self.assertEqual(stack.n, 0)
     
-    def test_push(self):
-        self.stack.push("value")
-        self.assertEqual(self.stack.size(), 1)
+    def test_isFull(self):
+        stack = Stack(1)
+        self.assertFalse(stack.isFull())
+    
+    def test_push_pop(self):
+        stack = Stack(1)
+        stack.push("value")
+        item = stack.pop()
+        self.assertEqual(item, "value")
 
-    def test_pop(self):
-        self.stack.push("value")
-        self.assertEqual(self.stack.pop(), "value")
+
 if __name__ == '__main__':
     unittest.main()
