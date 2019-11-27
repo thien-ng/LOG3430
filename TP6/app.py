@@ -113,6 +113,7 @@ class AutoAdaptiveStack(Stack):
 		self.max_trials = max_trials
 		self.size_increment = size_increment
 		self.trials = 0
+		self.rejected = Queue(4) 
 		super(AutoAdaptiveStack, self).__init__(*args, **kwargs)
 
 	def push(self, item):
@@ -121,9 +122,16 @@ class AutoAdaptiveStack(Stack):
 		except:
 			print("There is no free space actually :( try later")
 			self.trials += 1
+			self.rejected.enqueue(item)
 			if self.trials == self.max_trials:
 				self.max_size += self.size_increment
 				self.trials = 0
+				while (not self.isFull or not self.rejected.isEmpty()):
+					self.prepend(self.rejected.dequeue())
+
+
+
+
 	
 class AutoAdaptiveQueue(Queue): 
 
