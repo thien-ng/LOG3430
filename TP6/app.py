@@ -12,7 +12,7 @@ class Node:
 class LinkedList : 
 	# Initializes an empty linked list.
 	def __init__(self):
-		self.first = None  # beginning of linked list
+		self.list = []
 		self.n = 0  # number of elements on linked list
 
 	# Returns true if this linked list is empty.
@@ -27,35 +27,25 @@ class LinkedList :
 	def check(self):
 		if self.isEmpty():
 			raise ValueError("linked list underflow")
-		return self.first
+		return self.list[0]
 	
 	#Removes and returns the first item in the linked list
 	def peek(self):
 		if self.isEmpty():
 			raise ValueError("linked list underflow")
-		item = self.first.value
-		self.first= self.first.next
+		item = self.list.pop(0)
 		self.n -= 1
 		return item
 
 	def append(self, item):
-		new_node = Node(item)
-		if self.isEmpty():
-			self.first = new_node
-		else:
-			last_node = self.first
-			while last_node.next:
-				last_node = last_node.next
-			last_node.next = new_node
+		self.list.append(item)
 		self.n += 1
 
 	def prepend(self, item):
-		new_node = Node(item)
 		if self.isEmpty():
-			self.first = new_node
+			self.list.append(item)
 		else:
-			new_node.next = self.first 
-			self.first = new_node
+			self.list.insert(0, item)
 		self.n += 1
 
 	def accept(self, visitor):
