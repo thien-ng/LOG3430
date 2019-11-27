@@ -40,7 +40,6 @@ class List :
 		else:
 			self.list.insert(0, item)
 		self.n += 1
-		print("n+1")
 
 	def accept(self, visitor):
 		visitor.visit(self)
