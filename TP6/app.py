@@ -9,30 +9,30 @@ class Node:
 	def __str__(self):
 		return str(self.value)
 
-class LinkedList : 
-	# Initializes an empty linked list.
+class List : 
+	# Initializes an empty list.
 	def __init__(self):
-		self.list = []
-		self.n = 0  # number of elements on linked list
+		self.list = []		
+		self.n = 0  # number of elements on list
 
-	# Returns true if this linked list is empty.
+	# Returns true if this list is empty.
 	def isEmpty(self):
 		return self.n == 0
 
-	# Returns the number of items in this linked list.
+	# Returns the number of items in this list.
 	def size(self):
 		return self.n
 	
-	# Returns the first item added to this linked list 
+	# Returns the first item added to this list 
 	def check(self):
 		if self.isEmpty():
-			raise ValueError("linked list underflow")
+			raise ValueError("list underflow")
 		return self.list[0]
 	
-	#Removes and returns the first item in the linked list
+	#Removes and returns the first item in the list
 	def peek(self):
 		if self.isEmpty():
-			raise ValueError("linked list underflow")
+			raise ValueError("list underflow")
 		item = self.list.pop(0)
 		self.n -= 1
 		return item
@@ -51,7 +51,7 @@ class LinkedList :
 	def accept(self, visitor):
 		visitor.visit(self)
 
-class Queue(LinkedList): 
+class Queue(List): 
 
 	# Initializes an empty queue.
 	def __init__(self, max_size,  *args, **kwargs):
@@ -74,7 +74,7 @@ class Queue(LinkedList):
 		except ValueError:
 			print("Queue underflow")
 
-class Stack(LinkedList): 
+class Stack(List): 
 	# Initializes an empty stack.
 	def __init__(self, max_size, *args, **kwargs):
 		self.max_size = max_size
@@ -112,23 +112,23 @@ class AutoAdaptiveStack(Stack):
 		except:
 			print("There is no free space actually :( try later")
 			self.trials += 1
-			self.rejected.enqueue(item)
+			try:
+				self.rejected.enqueue(item)
+			except: 
+				print("There is no free space in the rejected items' queue")
 			if self.trials == self.max_trials:
 				self.max_size += self.size_increment
 				self.trials = 0
 				while (not self.isFull or not self.rejected.isEmpty()):
 					self.prepend(self.rejected.dequeue())
 
-
-
-
-	
 class AutoAdaptiveQueue(Queue): 
 
 	def __init__(self, max_trials, size_increment, *args, **kwargs):
 		self.max_trials = max_trials
 		self.size_increment = size_increment
 		self.trials = 0
+		self.rejected = Queue(4) 
 		super(AutoAdaptiveQueue, self).__init__(*args, **kwargs)
 
 	def enqueue(self, item):
@@ -137,10 +137,16 @@ class AutoAdaptiveQueue(Queue):
 		except ValueError:
 			print("There is no free space actually :( try later")
 			self.trials += 1
+			try:
+				self.rejected.enqueue(item)
+			except: 
+				print("There is no free space in the rejected items' queue")
 			if self.trials == self.max_trials:
 				self.max_size += self.size_increment
 				self.trials = 0
-		
+				while (not self.isFull or not self.rejected.isEmpty()):
+							self.prepend(self.rejected.dequeue())
+							
 class Printer(object, metaclass=abc.ABCMeta):
 	def __init__(self, name):
 		self.name = name
@@ -148,25 +154,26 @@ class Printer(object, metaclass=abc.ABCMeta):
 	def visit(self, list_obj):
 		if isinstance(list_obj, Stack):
 			display_message = "\n-------\n"
-			node = list_obj.first
-			while node:
-				display_message += '   '+str(node.value)+'   '
+			itr = iter(list_obj.list)
+			for i in itr:
+				display_message += '   '+str(i)+'   '
 				display_message += "\n-------\n"
-				node = node.next
+	
 		elif isinstance(list_obj, Queue):
 			display_message = "\n|"
-			node = list_obj.first
-			while node:
-				display_message += str(node.value) + "|"
-				node = node.next
+			itr = iter(list_obj.list)
+			for i in itr:
+				display_message += str(i) + "|"
 			display_message += "\n"
 		else:
 			display_message = "\n("
-			node = list_obj.first
-			while node.next:
-				display_message += str(node.value) + ","
-				node = node.next
-			display_message += str(node.value) + ")\n"
+			for i in list_obj.list:
+				index = list_obj.list.index(i)
+				if index < len(list_obj.list) - 1:
+					display_message += str(i) + ","
+				else:
+    					display_message += str(i) + ")\n"
+	
 		self.log(display_message)
 	
 	@abc.abstractmethod
@@ -192,29 +199,33 @@ class FilePrinter(Printer):
 			f.write(display_message)
 
 class Calculator:
-
+    
 	@staticmethod
 	def union(first_list, second_list):
 		if isinstance(first_list,Queue) and isinstance(second_list,Queue):
 			merged_queue = Queue(max_size=first_list.max_size+second_list.max_size)
-			merged_queue.first = first_list.first
-			last_node = merged_queue.first
-			while last_node.next:
-				last_node = last_node.next
-			last_node.next = second_list.first
+			
+			for i in first_list.list:
+				merged_queue.append(i)
+			
+			for i in second_list.list:
+				merged_queue.append(i)
+
 			merged_queue.n = first_list.n + second_list.n
 			return merged_queue
 		elif isinstance(first_list,Stack) and isinstance(second_list,Stack):
 			merged_stack = Stack(max_size=first_list.max_size+second_list.max_size)
-			merged_stack.first = second_list.first
-			last_node = merged_stack.first
-			while last_node.next:
-				last_node = last_node.next
-			last_node.next = first_list.first
+
+			for i in second_list.list:
+				merged_stack.append(i)
+
+			for i in first_list.list:
+				merged_stack.append(i)
+
 			merged_stack.n = first_list.n + second_list.n
 			return merged_stack
-		elif isinstance(first_list,LinkedList) and isinstance(second_list,LinkedList):
-			merged_list = LinkedList()
+		elif isinstance(first_list,List) and isinstance(second_list,List):
+			merged_list = List()
 			current_first = first_list.first
 			current_second = second_list.first
 			while current_first and current_second:
