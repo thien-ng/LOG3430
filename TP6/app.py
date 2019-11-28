@@ -2,6 +2,8 @@ import random as rand
 import abc
 
 # La classe Node n'est plus néssaire
+# La classe LinkedList est devenue List
+# L'attribut "first" a été remplacé par une liste python (Array)
 class List : 
 	# Initializes an empty list.
 	def __init__(self):
@@ -22,7 +24,7 @@ class List :
 			raise ValueError("list underflow")
 		return self.list[0]
 	
-	#Removes and returns the first item in the list
+	# Removes and returns the first item in the list
 	def peek(self):
 		if self.isEmpty():
 			raise ValueError("list underflow")
@@ -30,10 +32,12 @@ class List :
 		self.n -= 1
 		return item
 
+	# Adds item at the end of the list
 	def append(self, item):
 		self.list.append(item)
 		self.n += 1
 
+	# Adds item at the beginning of the list
 	def prepend(self, item):
 		if self.isEmpty():
 			self.list.append(item)
@@ -44,8 +48,8 @@ class List :
 	def accept(self, visitor):
 		visitor.visit(self)
 
+# Aucun changement
 class Queue(List): 
-
 	# Initializes an empty queue.
 	def __init__(self, max_size,  *args, **kwargs):
 		self.max_size = max_size
@@ -67,6 +71,7 @@ class Queue(List):
 		except ValueError:
 			print("Queue underflow")
 
+# Aucun changement
 class Stack(List): 
 	# Initializes an empty stack.
 	def __init__(self, max_size, *args, **kwargs):
@@ -90,6 +95,7 @@ class Stack(List):
 		except ValueError:
 			print("Stack underflow")
 
+# Une Queue des éléments rejetés a été ajouté dans les attributs de AutoAdaptiveStack
 class AutoAdaptiveStack(Stack): 
 	def __init__(self, max_trials, size_increment, max_size_rejected_queue, *args, **kwargs):
 		self.max_trials = max_trials
@@ -98,6 +104,10 @@ class AutoAdaptiveStack(Stack):
 		self.rejected = Queue(max_size_rejected_queue) 
 		super(AutoAdaptiveStack, self).__init__(*args, **kwargs)
 
+	# Si la pile est pleine et qu'il reste de la place dans la Queue, 
+	# l'item est ajouté dans la Queue des éléments rejetés.
+	# Cette item sera ajouté à la pile dès qu'une place se libérera.
+	# Sinon, elle est complètement rejetée.
 	def push(self, item):
 		try:
 			super(AutoAdaptiveStack, self).push(item)
@@ -114,6 +124,9 @@ class AutoAdaptiveStack(Stack):
 				while (not self.isFull or not self.rejected.isEmpty()):
 					self.prepend(self.rejected.dequeue())
 
+	# Nouvelle fonction : overwrite de la fonction pop() de la classe mère.
+	# Si la Queue des éléments rejetés n'est pas vide, on sort un de ses
+	# item pour l'ajouter à la pile.
 	def pop(self):
 		if self.isEmpty():
 			raise ValueError("Stack underflow")
@@ -122,8 +135,8 @@ class AutoAdaptiveStack(Stack):
 			self.push(self.rejected.dequeue())
 		return item
 
+# Une Queue des éléments rejetés a été ajouté dans les attributs de AutoAdaptiveQueue
 class AutoAdaptiveQueue(Queue): 
-
 	def __init__(self, max_trials, size_increment,  max_size_rejected_queue, *args, **kwargs):
 		self.max_trials = max_trials
 		self.size_increment = size_increment
@@ -131,6 +144,10 @@ class AutoAdaptiveQueue(Queue):
 		self.rejected = Queue(max_size_rejected_queue) 
 		super(AutoAdaptiveQueue, self).__init__(*args, **kwargs)
 
+	# Si la file est pleine et qu'il reste de la place dans la Queue, 
+	# l'item est ajouté dans la Queue des éléments rejetés.
+	# Cette item sera ajouté à la file dès qu'une place se libérera.
+	# Sinon, elle est complètement rejetée.
 	def enqueue(self, item):
 		try:
 			super(AutoAdaptiveQueue, self).enqueue(item)
@@ -146,14 +163,15 @@ class AutoAdaptiveQueue(Queue):
 				self.trials = 0
 				while (not self.isFull or not self.rejected.isEmpty()):
 							self.prepend(self.rejected.dequeue())
-
+	
+	# Nouvelle fonction : overwrite de la fonction dequeue() de la classe mère.
+	# Si la Queue des éléments rejetés n'est pas vide, on sort un de ses
+	# item pour l'ajouter à la file.
 	def dequeue(self):
 		if self.isEmpty():
 			raise ValueError("Stack underflow")
 		item = self.list.pop(0)
-		if self.rejected.isEmpty():
-			self.n -= 1
-		else:
+		if not self.rejected.isEmpty():
 			self.enqueue(self.rejected.dequeue())	
 		return item					
 
@@ -162,6 +180,7 @@ class Printer(object, metaclass=abc.ABCMeta):
 		self.name = name
 
 	# La fonction n'utilisent plus les nodes pour faire les iterations
+	# Les listes chainés sont donc remplacer par des listes
 	def visit(self, list_obj):
 		if isinstance(list_obj, Stack):
 			display_message = "\n-------\n"
@@ -190,7 +209,8 @@ class Printer(object, metaclass=abc.ABCMeta):
 	@abc.abstractmethod
 	def log(self, display_message):
 		raise NotImplementedError('child objects must define log to create a printer')
-		
+
+# Aucun changement		
 class ScreenPrinter(Printer):
 	def __init__(self, *args, **kwargs):
 		super(ScreenPrinter, self).__init__(*args, **kwargs)
@@ -199,6 +219,7 @@ class ScreenPrinter(Printer):
 		print(self.name)
 		print(display_message)
 
+# Aucun changement
 class FilePrinter(Printer):
 	def __init__(self, file_path, *args, **kwargs):
 		self.file_path = file_path
@@ -209,8 +230,8 @@ class FilePrinter(Printer):
 			f.write(self.name)
 			f.write(display_message)
 
-class Calculator:
-    
+# On a remplacé la liste chainée par une liste python (array)
+class Calculator:   
 	@staticmethod
 	def union(first_list, second_list):
 		if isinstance(first_list,Queue) and isinstance(second_list,Queue):
