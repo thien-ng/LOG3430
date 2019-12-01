@@ -162,7 +162,7 @@ class AutoAdaptiveQueue(Queue):
 				self.max_size += self.size_increment
 				self.trials = 0
 				while (not self.isFull or not self.rejected.isEmpty()):
-							self.prepend(self.rejected.dequeue())
+							self.append(self.rejected.dequeue())
 	
 	# Nouvelle fonction : overwrite de la fonction dequeue() de la classe mère.
 	# Si la Queue des éléments rejetés n'est pas vide, on sort un de ses
@@ -170,7 +170,7 @@ class AutoAdaptiveQueue(Queue):
 	def dequeue(self):
 		if self.isEmpty():
 			raise ValueError("Stack underflow")
-		item = self.list.pop(0)
+		item = self.peek()
 		if not self.rejected.isEmpty():
 			self.enqueue(self.rejected.dequeue())	
 		return item					
